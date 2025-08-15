@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<title>FromJ</title>
 <style>
 .drawer {
   position: fixed;
@@ -25,25 +27,19 @@
   padding-right: 250px; /* 드로어가 열렸을 때 콘텐츠 밀어냄 */
 }
 </style>
-
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	
 </head>
 <body>
 
-<!-- 메뉴 열기 버튼 -->
-<jsp:include page="chat.jsp"></jsp:include>
+<!-- 하단 메뉴 버튼 -->
+<jsp:include page="header/header.jsp"></jsp:include>
 
-<div class="content" id="myContent">
-  <h1>본문 내용</h1>
-  <p>여기에 본문 내용이 들어갑니다.</p>
-  
+<!-- 본문 메뉴 버튼 -->
+<jsp:include page="body/body.jsp"></jsp:include>
+
+<!-- 하단 메뉴 버튼 -->
+<jsp:include page="footer/footer.jsp"></jsp:include>
 </div>
 
-<jsp:include page="header.jsp"></jsp:include>
-<section>
-	<p>페이지 내용</p>
-</section>
-<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

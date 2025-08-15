@@ -27,7 +27,7 @@ public class EmpServlet extends HttpServlet {
 		if(empIdStr.startsWith("/")) empIdStr = empIdStr.substring(1);
 		Emp emp = null;
 		try {
-			emp = EmpDAO.getEmpById(Integer.parseInt(empIdStr));
+			//emp = EmpDAO.getEmpById(Integer.parseInt(empIdStr));
 		} catch(Exception e) {
 			
 		}
