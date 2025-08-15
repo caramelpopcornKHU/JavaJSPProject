@@ -39,7 +39,6 @@
 
 <!-- 하단 메뉴 버튼 -->
 <jsp:include page="footer/footer.jsp"></jsp:include>
-</div>
 
 </body>
 </html>

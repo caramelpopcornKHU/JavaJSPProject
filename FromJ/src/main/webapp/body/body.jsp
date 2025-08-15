@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
-
  <!--본문내용 -->
 <div class="content" id="myContent">
   <h1>본문 내용</h1>
@@ -13,3 +11,9 @@
 </section>
 <!-- 메뉴 열기 버튼 -->
 <jsp:include page="chat.jsp"></jsp:include>
+</div>
+
+
+
+
+

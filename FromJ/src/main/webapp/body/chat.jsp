@@ -4,11 +4,6 @@
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
-<style>
-</style>
-
-
-
 <!-- 메뉴 열기 버튼 -->
 <button onclick="toggleDrawer()">메뉴 열기</button>
 
