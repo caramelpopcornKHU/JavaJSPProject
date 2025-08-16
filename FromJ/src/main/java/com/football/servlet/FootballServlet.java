@@ -27,7 +27,7 @@ public class FootballServlet extends HttpServlet {
         
         try {
             // 최신 뉴스 4개 가져오기
-            List<News> newsList = newsDAO.getLatestNews(6);
+            List<News> newsList = newsDAO.getLatestNews(10);
             
             // 리그 순위 가져오기 (추가)
             List<League> premierLeague = leagueDAO.getLeagueStandings("Premier League");
