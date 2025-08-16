@@ -82,11 +82,11 @@ $(document).ready(function() {
     // --------------------------
     // 2. 웹소켓 연결
     // --------------------------
-    let webSocket = new WebSocket(
-        "<%= application.getInitParameter("CHAT_ADDR") %>" 
-        + "<%= request.getContextPath() %>" 
-        + "/ChatingServer"
-    );
+	 let webSocket = new WebSocket(
+	    "<%= application.getInitParameter("CHAT_ADDR") %>" 
+	    + "/ChatingServer"
+	);
+
 
     // --------------------------
     // 3. 메시지 전송 함수

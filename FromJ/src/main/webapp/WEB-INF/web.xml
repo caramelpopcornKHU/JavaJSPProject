@@ -6,16 +6,12 @@
          version="4.0">
     
     <display-name>WebSocket Chat Application</display-name>
-    
+
     <!-- 채팅 서버 주소 설정 -->
-    <context-param>
-        <param-name>CHAT_ADDR</param-name>
-        <param-value>ws://172.168.10.24:9000</param-value>
-    </context-param>
-    
-    <!-- 기본 페이지 설정 -->
-    <welcome-file-list>
-        <welcome-file>MultiChatMain.jsp</welcome-file>
-    </welcome-file-list>
-    
+	<context-param>
+	    <param-name>CHAT_ADDR</param-name>
+	    <!-- 포트 80은 HTTP의 기본 포트이므로, 웹 소켓 주소에서 포트 번호를 생략합니다. -->
+	    <!-- 주소에 172.168.10.24로 해야함 다른 컴퓨터도 접속가능함 -->
+	    <param-value>ws://172.168.10.24</param-value>
+	</context-param>
 </web-app>
