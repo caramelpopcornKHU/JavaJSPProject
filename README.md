@@ -534,6 +534,94 @@ git checkout -b hotfix-v1.0 v1.0  # 수정이 필요한 경우
 
 태그는 **"이 시점이 중요해!"** 라고 표시하는 북마크 같은 개념입니다. 프로젝트의 **버전 관리**나 **중요한 마일스톤** 표시에 매우 유용하니 적극 활용해보세요!
 
+좋습니다 👍 깔끔하게 보기 좋게 정리된 **Git 브랜치 & 머지 가이드**를 만들어드릴게요.
+
 ---
 
-**협업 시 주의 사항**
+# 🚀 Git 브랜치 & 머지 가이드
+
+## 1. 브랜치 생성 & 이동
+
+```bash
+# 현재 커밋을 기준으로 새 브랜치 생성
+git branch [브랜치이름]
+
+# 생성된 브랜치로 이동
+git checkout [브랜치이름]
+
+# 브랜치를 만들고 동시에 이동
+git checkout -b [브랜치이름]
+```
+
+---
+
+## 2. 브랜치 삭제
+
+```bash
+# 병합된 브랜치만 삭제 (안전)
+git branch -d [브랜치이름]
+
+# 강제로 삭제 (병합되지 않아도 삭제됨)
+git branch -D [브랜치이름]
+```
+
+---
+
+## 3. 브랜치 병합
+
+```bash
+# 현재 위치한 브랜치에 develop-chat 브랜치 내용을 병합
+git merge develop-chat
+```
+
+---
+
+## 4. 충돌 발생 시 처리
+
+```bash
+# 충돌 난 파일을 직접 수정 후
+git add .
+
+# 병합 완료 커밋
+git commit
+```
+
+---
+
+## 5. 병합 취소
+
+```bash
+# 아직 커밋하지 않은 병합을 취소
+git merge --abort
+```
+
+---
+
+## 6. 실무에서 자주 쓰는 워크플로우 예시
+
+```bash
+# 1. 작업용 feature 브랜치 생성
+git checkout -b feature/login
+
+# 2. 작업 진행 후 커밋
+git add .
+git commit -m "feat: 로그인 기능 구현"
+
+# 3. develop 브랜치로 이동
+git checkout develop
+
+# 4. feature 브랜치 병합
+git merge feature/login
+
+# 5. 필요 없어진 브랜치 삭제
+git branch -d feature/login
+```
+
+---
+
+👉 이렇게 하면
+
+* **작업은 feature 브랜치에서 안전하게**
+* **최종 코드는 develop/master에 병합**
+* **병합 충돌 발생 시 수정 → add → commit or abort**
+
