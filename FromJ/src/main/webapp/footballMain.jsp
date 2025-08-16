@@ -405,6 +405,7 @@
        </div>
    </header>
    
+
    <!-- Hero Section -->
    <section class="hero">
        <div class="container">
@@ -571,5 +572,11 @@ $(document).ready(function() {
     });
 });
 </script>
+	<div>
+		<!-- 메뉴 열기 버튼 -->
+		<jsp:include page="body/chat.jsp"></jsp:include>
+	</div>
+
+   
 </body>
 </html>
