@@ -531,46 +531,62 @@
    </footer>
    
    <script>
-       function handleClick(itemId) {
-           alert('클릭되었습니다! Item ID: ' + itemId);
-       }
-       
-       // 스크롤 효과
-       window.addEventListener('scroll', function() {
-           const header = document.querySelector('header');
-           if (window.scrollY > 100) {
-               header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-           } else {
-               header.style.boxShadow = 'none';
-           }
-       });
+   <!-- 기존 javascript
+   function handleClick(itemId) {
+	    alert('클릭되었습니다! Item ID: ' + itemId);
+	}
+
+	window.addEventListener('scroll', function() {
+	    const header = document.querySelector('header');
+	    if (window.scrollY > 100) {
+	        header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+	    } else {
+	        header.style.boxShadow = 'none';
+	    }
+	});  -->
+   
+	<!--JQuery-->
+	$(document).ready(function(){
+	    window.handleClick = function(itemId) {
+	        alert('클릭되었습니다. Item ID: ' + itemId);
+	    };
+	    
+	    $(window).scroll(function() {
+	        if($(window).scrollTop() > 100) {
+	            $('header').css('box-shadow', '0 2px 20px rgba(0,0,0,0.1)');
+	        } else {
+	            $('header').css('box-shadow', 'none');
+	        }
+	    });
+	});
    </script>
+   
    <script>
-$(document).ready(function() {
-    $("#refreshBtn").click(function() {
-        var button = $(this);
-        button.prop("disabled", true).text("새로고침 중...");
-        
-        // Ajax로 서버에 요청
-        $.ajax({
-            type: "GET",
-            url: window.location.href, // 현재 페이지 주소
-            data: "ajax=true", // Ajax 요청임을 표시
-            success: function(data) {
-                console.log("Ajax 성공!");
-                // 1초 후 페이지 새로고침
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1000);
-            },
-            error: function() {
-                console.log("Ajax 실패");
-                alert("새로고침 실패");
-                button.prop("disabled", false).text("소식 새로고침");
-            }
-        });
-    });
-});
+	$(document).ready(function() {
+	    $("#refreshBtn").click(function() {
+	        var button = $(this);
+	        button.prop("disabled", true).text("새로고침 중...");
+	        
+	        // Ajax로 서버에 요청
+	        $.ajax({
+	            type: "GET",
+	            url: window.location.href, // 현재 페이지 주소
+	            data: "ajax=true", // Ajax 요청임을 표시
+	            success: function(data) {
+	                console.log("Ajax 성공!");
+	                // 1초 후 페이지 새로고침
+	                setTimeout(function() {
+	                    window.location.reload();
+	                }, 1000);
+	            },
+	            error: function() {
+	                console.log("Ajax 실패");
+	                alert("새로고침 실패");
+	                button.prop("disabled", false).text("소식 새로고침");
+	            }
+	        });
+	    });
+	});
 </script>
 	<div>
 		<!-- 메뉴 열기 버튼 -->
