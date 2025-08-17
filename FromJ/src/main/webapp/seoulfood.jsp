@@ -7,7 +7,13 @@
     <%-- 여기에 기존의 CSS, JS 링크 등 헤더 정보 --%>
     
     <%-- ★★★★★ 1. 동적 헤더 포함 ★★★★★ --%>
-    <%@ include file="header/foodheader.jsp" %>
+    
+    
+<div>
+    <!-- 메뉴 열기 버튼 -->
+	<jsp:include page="foodheader.jsp"></jsp:include>
+</div>
+    
 </head>
 <body>
     <div id="map" style="width:100%;height:600px;"></div>
@@ -17,19 +23,19 @@
         <input type="hidden" id="favRestaurantId" name="restaurantId">
     </form>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APPKEY"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f32bcf87a6f85ab908ddb72d2f01c85b"></script>
     <script>
         // ... 기존의 지도 생성 코드 ...
 
         // 마커와 인포윈도우를 생성하는 부분 (예시: positions 배열을 순회)
         positions.forEach(function(place) {
-            var marker = new kakao.maps.Marker({
+            let marker = new kakao.maps.Marker({
                 map: map,
                 position: new kakao.maps.LatLng(place.lat, place.lng)
             });
 
             // ★★★★★ 2. 인포윈도우 컨텐츠 구성 ★★★★★
-            var content = '<div class="infowindow">' +
+            let content = '<div class="infowindow">' +
                           '   <h5>' + place.title + '</h5>' +
                           '   <p>' + place.address + '</p>';
 
@@ -41,7 +47,7 @@
             
             content += '</div>';
 
-            var infowindow = new kakao.maps.InfoWindow({
+            let infowindow = new kakao.maps.InfoWindow({
                 content: content
             });
 

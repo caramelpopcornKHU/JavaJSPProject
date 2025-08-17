@@ -7,7 +7,7 @@
 		<ul>
 			<li><a href ="foodheader.jsp">서울맛집지도</a></li>
 			<li><a href ="footballMain.jsp">축구 하는 여자</a></li>
-			<li>방명록</li>
+			<li><a href ="ESJ.jsp">어성준은 힘들다</a></li>
 		</ul>		
 	</nav>
 </header>

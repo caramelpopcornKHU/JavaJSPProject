@@ -14,9 +14,9 @@
     String restaurantId = request.getParameter("restaurantId");
 
     // DB 연결 정보
-    String dbURL = "jdbc:mysql://localhost:3306/your_db_name?serverTimezone=UTC";
-    String dbID = "your_db_id";
-    String dbPassword = "your_db_password";
+    String dbURL = "jdbc:mysql://localhost:3306/your_db_name?serverTimezone=Asia/Seoul";
+    String dbID = "root";
+    String dbPassword = "rootroot";
 
     Connection conn = null;
     PreparedStatement pstmt = null;
