@@ -437,7 +437,7 @@
                    <div class="section-title">
                        <h2>리그 순위</h2>
                        <p class="section-subtitle">프리미어리그 & 라리가 최신 순위</p>
-                        <button id="refreshRankBtn">순위 새로고침</button>
+                        <button id="refreshRankBtn">순위 새로고침🗘</button>
                    </div>
                    <div class="league-container">
                        <!-- 프리미어리그 -->
@@ -479,7 +479,7 @@
                    <div class="section-title">
                        <h2>축구 소식통</h2>
                        <p class="section-subtitle">축구 소식통 최근 인기글</p>
-                       <button id="refreshBtn">소식 새로고침</button>
+                       <button id="refreshBtn">소식 새로고침🗘</button>
                    </div>
                    
                    <div class="news-list">
@@ -491,7 +491,7 @@
                                    <div class="news-item-title">${news.title}</div>
                                    <div class="news-meta">
                                        ${news.category} | 
-                                       <fmt:formatDate value="${news.createdAt}" pattern="MM월 dd일"/> | 
+                                       <fmt:formatDate value="${news.createdAt}" pattern="MM월 dd일 HH:mm:ss"/> | 
                                        <span class="comment-count">[${news.commentCount}]</span>
                                    </div>
                                </div>
@@ -564,6 +564,7 @@
 	    });
 	});
 </script>
+
 <script>
 	$("#refreshRankBtn").click(function() {
 	    var button = $(this);

@@ -31,13 +31,36 @@ public class FootballServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-
+        req.setCharacterEncoding("utf-8");     
         System.out.println("FootballServlet service 실행됨");
+        
+        // Ajax 요청인지 확인
+        String ajaxParam = req.getParameter("ajax");
 
         try {
-            // 1. 최신 뉴스 가져오기
-            List<News> newsList = newsDAO.getLatestNews(10);
+            List<News> newsList;
+            
+            // Ajax 요청이면 세션에 플래그 설정 후 JSON 응답
+            if ("true".equals(ajaxParam)) {
+                System.out.println("Ajax랜덤");
+                req.getSession().setAttribute("randomMode", true);
+                
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().write("{\"status\":\"success\"}");
+                return;
+            }
+            
+            // 세션에서 랜덤 모드 확인
+            Boolean randomMode = (Boolean) req.getSession().getAttribute("randomMode");
+            if (randomMode != null && randomMode) {
+                System.out.println("랜덤 소식 호출");
+                newsList = newsDAO.getRandomNews(10);
+                req.getSession().removeAttribute("randomMode"); // 한 번만 사용 후 제거
+            } else {
+                System.out.println("최신 소식 호출");
+                newsList = newsDAO.getLatestNews(10);
+            }
 
             // 2. 리그 순위 가져오기
             List<League> premierLeague = leagueDAO.getLeagueStandings("Premier League");
@@ -65,6 +88,14 @@ public class FootballServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println("FootballServlet에서 에러 발생: " + e.getMessage());
             e.printStackTrace();
+            
+            // 에러 처리
+            if ("true".equals(ajaxParam)) {
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().write("{\"status\":\"error\"}");
+                return;
+            }
 
             // 예외시 빈 리스트로 안전하게 전달
             req.setAttribute("newsList", new java.util.ArrayList<News>());
