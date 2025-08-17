@@ -10,7 +10,7 @@
 /* 채팅 메뉴 버튼 */
 .chat-menu-toggle {
     position: fixed;
-    top: 30px;
+    bottom: 30px; /* 상단에서 하단으로 변경 */
     right: 30px;
     background: rgba(255, 255, 255, 0.9);
     border: none;

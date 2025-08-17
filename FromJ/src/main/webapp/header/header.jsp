@@ -5,8 +5,8 @@
 	<h1>커뮤니티 생성</h1>
 	<nav>
 		<ul>
-			<li>어성준 대낙</li>
-			<li></li>
+			<li><a href ="foodheader.jsp">서울맛집지도</a></li>
+			<li><a href ="footballMain.jsp">축구 하는 여자</a></li>
 			<li>방명록</li>
 		</ul>		
 	</nav>

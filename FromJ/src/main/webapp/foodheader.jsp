@@ -19,9 +19,10 @@
             <% } %>
         </ul>
     </nav>
+    
 <div>
     <!-- 메뉴 열기 버튼 -->
-<jsp:include page="/body/chat.jsp"></jsp:include>
+	<jsp:include page="/body/chat.jsp"></jsp:include>
 </div>
 
     
