@@ -13,7 +13,7 @@ import com.football.dao.LeagueDAO;
 
 import com.football.model.News;
 import com.football.model.League;
-import com.football.model.BreakingNews; // ⭐️ 브레이킹뉴스 모델 추가
+import com.football.model.BreakingNews; 
 
 @WebServlet("/footballMain")
 public class FootballServlet extends HttpServlet {
@@ -53,13 +53,13 @@ public class FootballServlet extends HttpServlet {
             req.setAttribute("laLiga", laLiga);
             req.setAttribute("breakingNews", breakingNews);
 
-            // 디버그 출력 (필수는 아님)
+            // 디버그 출력
             System.out.println("가져온 뉴스 개수: " + newsList.size());
             System.out.println("프리미어리그 팀 수: " + premierLeague.size());
             System.out.println("라리가 팀 수: " + laLiga.size());
             System.out.println("브레이킹뉴스 개수: " + breakingNews.size());
 
-            // JSP로 forward
+            // forward
             req.getRequestDispatcher("/footballMain.jsp").forward(req, resp);
 
         } catch (Exception e) {

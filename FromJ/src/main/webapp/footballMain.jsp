@@ -437,6 +437,7 @@
                    <div class="section-title">
                        <h2>리그 순위</h2>
                        <p class="section-subtitle">프리미어리그 & 라리가 최신 순위</p>
+                        <button id="refreshRankBtn">순위 새로고침</button>
                    </div>
                    <div class="league-container">
                        <!-- 프리미어리그 -->
@@ -480,6 +481,7 @@
                        <p class="section-subtitle">축구 소식통 최근 인기글</p>
                        <button id="refreshBtn">소식 새로고침</button>
                    </div>
+                   
                    <div class="news-list">
                        <c:forEach var="news" items="${newsList}" varStatus="status">
                            <div class="news-item">
@@ -562,6 +564,27 @@
 	    });
 	});
 </script>
+<script>
+	$("#refreshRankBtn").click(function() {
+	    var button = $(this);
+	    button.prop("disabled", true).text("새로고침 중...");
+	    
+	    $.ajax({
+	        type: "GET",
+	        data: "ajax=rank",         
+	        success: function(data) {
+	            setTimeout(function() {
+	                window.location.reload();
+	            }, 1000);
+	        },
+	        error: function() {
+	            alert("순위 새로고침 실패!");
+	            button.prop("disabled", false).text("순위 새로고침");
+	        }
+	    });
+	});
+</script>
+
 	<div>
 		<!-- 메뉴 열기 버튼 -->
 		<jsp:include page="body/chat.jsp"></jsp:include>
