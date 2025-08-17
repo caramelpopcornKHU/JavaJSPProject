@@ -47,26 +47,5 @@ public class LeagueDAO {
         
         return standings;
     }
-    
-    // 순위 업데이트 (관리자용)
-    public boolean updateStandings(List<League> standings) {
-        String sql = "UPDATE league_standings SET position = ? WHERE id = ?";
-        
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            for (League league : standings) {
-                pstmt.setInt(1, league.getPosition());
-                pstmt.setInt(2, league.getId());
-                pstmt.addBatch();
-            }
-            
-            int[] results = pstmt.executeBatch();
-            return results.length > 0;
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+   
 }

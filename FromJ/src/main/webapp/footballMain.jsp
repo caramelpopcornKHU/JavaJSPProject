@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <%@ page import="com.football.model.News" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -109,6 +111,7 @@
            font-weight: 400;
            opacity: 0.92;
        }
+       
        @keyframes scrollBar {
            0%   { transform: translateX(0);}
            100% { transform: translateX(-50%);}
@@ -415,30 +418,15 @@
    </section>
 
    <!-- Breaking News Bar -->
-   <div class="breaking-bar">
-       <div class="breaking-wrap">
-           <span class="breaking-item">
-               <span class="breaking-dot"></span>
-               LIVE: 토트넘 vs 맨시티 2-1 (후반 75분)
-           </span>
-           <span class="breaking-item">
-               <span class="breaking-dot"></span>
-               속보: 손흥민 시즌 15호골 달성!
-           </span>
-           <span class="breaking-item">
-               <span class="breaking-dot"></span>
-               News: 15개월 만에 돌아온 조규성 
-           </span>
-           <span class="breaking-item">
-               <span class="breaking-dot"></span>
-               속보: 리버풀 본머스 4-2로 꺾고 EPL 첫 승
-           </span>
-           
-           <%-- <c:forEach var="brief" items="${breakingNews}">
-               <span class="breaking-item"> <span class="breaking-dot"></span> ${brief.title} </span>
-           </c:forEach> --%>
-       </div>
-   </div>
+	<div class="breaking-bar">
+	  <div class="breaking-wrap">
+	    <c:forEach var="brief" items="${breakingNews}">
+	      <span class="breaking-item">
+	        <span class="breaking-dot"></span> ${brief.title}
+	      </span>
+	    </c:forEach>
+	  </div>
+	</div>
 
    <!-- 메인 콘텐츠 섹션 (리그 순위 + 뉴스) -->
    <section class="main-content-section">
@@ -530,21 +518,7 @@
        </div>
    </footer>
    
-   <script>
-   <!-- 기존 javascript
-   function handleClick(itemId) {
-	    alert('클릭되었습니다! Item ID: ' + itemId);
-	}
-
-	window.addEventListener('scroll', function() {
-	    const header = document.querySelector('header');
-	    if (window.scrollY > 100) {
-	        header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-	    } else {
-	        header.style.boxShadow = 'none';
-	    }
-	});  -->
-   
+   <script>  
 	<!--JQuery-->
 	$(document).ready(function(){
 	    window.handleClick = function(itemId) {
