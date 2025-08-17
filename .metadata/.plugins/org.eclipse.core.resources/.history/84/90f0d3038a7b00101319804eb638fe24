@@ -1,0 +1,163 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FromJ</title>
+<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<!-- 중앙 트리거 -->
+	<div class="center-wrap">
+		<div>
+			<button id="fromj" class="fromj-btn" aria-haspopup="true"
+				aria-controls="menu" aria-expanded="false">FromJ</button>
+			<div class="subtxt">눌러서 열기</div>
+		</div>
+	</div>
+
+	<!-- 오버레이 메뉴 -->
+	<section id="menu" class="menu" role="dialog" aria-modal="true"
+		aria-label="FromJ 메뉴">
+		<div class="goo">
+			<a class="bubble" href="ESJ.jsp"> <span class="label">어성준은
+					힘들다</span> <span class="dot d1"></span><span class="dot d2"></span><span
+				class="dot d3"></span>
+			</a> <a class="bubble" href="footballMain.jsp"> <span class="label">축구하는여자</span>
+				<span class="dot d1"></span><span class="dot d2"></span><span
+				class="dot d3"></span>
+			</a> <a class="bubble" href="seoulfood.jsp"> <span
+				class="label">서울맛집지도</span> <span class="dot d1"></span><span
+				class="dot d2"></span><span class="dot d3"></span>
+			</a>
+		</div>
+		<div class="close-hint">ESC로 닫기</div>
+	</section>
+
+	<!-- Gooey filter -->
+	<svg width="0" height="0" style="position: absolute">
+    <defs>
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6"
+			result="blur" />
+        <feColorMatrix in="blur"
+			values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -6" result="goo" />
+        <feBlend in="SourceGraphic" in2="goo" />
+      </filter>
+    </defs>
+  </svg>
+	<jsp:include page="chat.jsp"></jsp:include>
+
+	<script>
+    const root    = document.documentElement;
+    const trigger = document.getElementById('fromj');
+    const bubbles = Array.from(document.querySelectorAll('.bubble'));
+
+    /* 반응형 반경: 화면 기준 */
+    function calcRadius(){
+      return Math.max(180, Math.min(280, Math.min(window.innerWidth, window.innerHeight) * 0.28));
+    }
+
+    /* 화면 정중앙 기준(12·4·8시) 고정 배치 */
+    function positionBubbles(){
+	  const total  = bubbles.length;
+	  const radius = calcRadius();
+	
+	  const cx = window.innerWidth  / 2;
+	  const cy = window.innerHeight / 2;
+	
+	  const defaultAngles = [-90, 30, 210]; // 12시, 4시, 8시
+	
+	  bubbles.forEach((b, i) => {
+	    const deg = b.dataset.angle ? parseFloat(b.dataset.angle) : defaultAngles[i];
+	    const a   = deg * Math.PI / 180;
+	
+	    const bw = b.offsetWidth || 140, bh = b.offsetHeight || 140;
+	    const x  = cx + Math.cos(a) * radius - bw / 2;
+	    const y  = cy + Math.sin(a) * radius - bh / 2;
+	
+	    b.style.left = x + 'px';
+	    b.style.top  = y + 'px';
+	    b.style.animationDelay = `${0.30 + i * 0.20}s`;
+  });
+}
+
+
+
+    /* 안전 타이밍 배치 */
+    const safePosition = ()=> requestAnimationFrame(positionBubbles);
+
+    /* 상태 리셋(다시 열 때 항상 보이도록) */
+    function resetBubbles(){
+      bubbles.forEach(b=>{
+        b.classList.remove('burst','recharge');
+        b.style.opacity   = 0;
+        b.style.transform = 'translateY(20px) scale(.9)';
+        b.querySelectorAll('.ripple').forEach(r=>r.remove());
+      });
+    }
+
+    function rechargeBubbles(){
+      bubbles.forEach((b,i)=>{
+        setTimeout(()=>{
+          b.classList.add('recharge');
+          setTimeout(()=> b.classList.remove('recharge'), 800);
+        }, i*150);
+      });
+    }
+
+    /* 열기/닫기 */
+    function openMenuAt(x,y){
+      root.style.setProperty('--cx', x+'px');
+      root.style.setProperty('--cy', y+'px');
+      resetBubbles();
+      safePosition();            // 배치
+      document.body.classList.add('menu-open');
+      trigger.setAttribute('aria-expanded','true');
+      setTimeout(rechargeBubbles, 500);
+    }
+    function closeMenu(){
+      document.body.classList.remove('menu-open');
+      trigger.setAttribute('aria-expanded','false');
+    }
+
+    /* 클릭 시: 버튼 중심에서 열림(버튼은 항상 화면 중앙) */
+    trigger.addEventListener('click', ()=>{
+      const cx = window.innerWidth  / 2;
+      const cy = window.innerHeight / 2;
+      openMenuAt(cx, cy);
+    });
+
+    /* 버블 클릭: ripple + burst + 이동 */
+    bubbles.forEach(b=>{
+      b.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const link = b.getAttribute('href');
+        const r    = b.getBoundingClientRect();
+        const x    = e.clientX - r.left;
+        const y    = e.clientY - r.top;
+        const rip  = document.createElement('span');
+        rip.className = 'ripple';
+        const size = Math.max(r.width, r.height) * 1.1;
+        rip.style.width = rip.style.height = size+'px';
+        rip.style.left  = (x-size/2)+'px';
+        rip.style.top   = (y-size/2)+'px';
+        b.appendChild(rip);
+        b.classList.add('burst');
+        setTimeout(()=> window.location.assign(link), 500);
+        setTimeout(()=> rip.remove(), 1000);
+      });
+    });
+
+    /* 초기/변경 타이밍에 항상 화면 중앙 기준 재배치 */
+    window.addEventListener('load',  safePosition);
+    window.addEventListener('resize',safePosition);
+    window.addEventListener('scroll',safePosition);
+
+    /* ESC로 닫기 */
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+  </script>
+</body>
+</html>

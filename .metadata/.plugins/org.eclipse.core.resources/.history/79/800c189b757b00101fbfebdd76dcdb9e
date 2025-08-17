@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<header>
+	<h1>커뮤니티 생성</h1>
+	<nav>
+		<ul>
+			<li><a href ="foodheader.jsp">서울맛집지도</a></li>
+			<li><a href ="footballMain.jsp">축구 하는 여자</a></li>
+			<li><a href ="ESJ.jsp">축구 하는 여자</a></li>
+		</ul>		
+	</nav>
+</header>

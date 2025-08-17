@@ -1,0 +1,346 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- 채팅 스타일 -->
+<style>
+/* 채팅 컨테이너 기본 설정 */
+.chat-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 채팅 메뉴 버튼 */
+.chat-menu-toggle {
+    position: fixed;
+    bottom: 30px; /* 상단에서 하단으로 변경 */
+    right: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+.chat-menu-toggle:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.chat-menu-toggle i {
+    margin-right: 8px;
+}
+
+/* 채팅 드로어 */
+.chat-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.chat-drawer.open {
+    right: 0;
+}
+
+/* 채팅 드로어 헤더 */
+.chat-drawer-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 30px 30px;
+    text-align: center;
+    position: relative;
+}
+
+.chat-drawer-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.chat-drawer-header p {
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+/* 드로어 닫기 버튼 */
+.close-chat-drawer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.close-chat-drawer:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 드로어 컨텐츠 */
+.chat-drawer-content {
+    flex: 1;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-form {
+    width: 100%;
+    max-width: 300px;
+}
+
+.input-group {
+    margin-bottom: 30px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.chat-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.join-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.join-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.join-btn:active {
+    transform: translateY(-1px);
+}
+
+/* 채팅 오버레이 */
+.chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.chat-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .chat-drawer {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .chat-menu-toggle {
+        top: 20px;
+        right: 20px;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .chat-drawer-content {
+        padding: 30px 20px;
+    }
+}
+</style>
+
+<!-- FontAwesome 아이콘 (이미 로드되어 있지 않은 경우에만) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<!-- 채팅 컨테이너 -->
+<div class="chat-container">
+    <!-- 채팅 메뉴 버튼 -->
+    <button class="chat-menu-toggle" onclick="toggleChatDrawer()">
+        <i class="fas fa-comment-alt"></i> 채팅
+    </button>
+
+    <!-- 채팅 오버레이 -->
+    <div class="chat-overlay" id="chatOverlay" onclick="closeChatDrawer()"></div>
+
+    <!-- 채팅 드로어 -->
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="chat-drawer-header">
+            <button class="close-chat-drawer" onclick="closeChatDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-users"></i> 채팅 참여</h2>
+            <p>닉네임을 입력하고 채팅을 시작하세요</p>
+        </div>
+        
+        <div class="chat-drawer-content">
+            <form class="chat-form" onsubmit="return false;">
+                <div class="input-group">
+                    <label for="chatId">
+                        <i class="fas fa-user"></i> 닉네임
+                    </label>
+                    <input 
+                        type="text" 
+                        id="chatId" 
+                        class="chat-input" 
+                        placeholder="사용할 닉네임을 입력하세요"
+                        maxlength="10"
+                    >
+                </div>
+                <button type="button" class="join-btn" onclick="chatWinOpen()">
+                    <i class="fas fa-sign-in-alt"></i> 채팅방 입장
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// jQuery가 로드되어 있는지 확인
+if (typeof jQuery === 'undefined') {
+    // jQuery가 없으면 CDN에서 로드
+    var script = document.createElement('script');
+    script.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
+    document.head.appendChild(script);
+    
+    script.onload = function() {
+        initializeChatFunctions();
+    };
+} else {
+    // jQuery가 이미 있으면 바로 초기화
+    $(document).ready(function() {
+        initializeChatFunctions();
+    });
+}
+
+function initializeChatFunctions() {
+    // 엔터키로 채팅방 입장
+    $('#chatId').keypress(function(e) {
+        if (e.which === 13) {
+            chatWinOpen();
+        }
+    });
+
+    // 입력 시 에러 스타일 제거
+    $('#chatId').on('input', function() {
+        $(this).removeClass('error');
+    });
+    
+    // ESC 키로 드로어 닫기
+    $(document).keydown(function(e) {
+        if (e.keyCode === 27) {
+            closeChatDrawer();
+        }
+    });
+}
+
+function toggleChatDrawer() {
+    var drawer = document.getElementById('chatDrawer');
+    var overlay = document.getElementById('chatOverlay');
+    
+    if (drawer.classList.contains('open')) {
+        closeChatDrawer();
+    } else {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+        
+        // 포커스를 약간 지연시켜 애니메이션과 겹치지 않도록
+        setTimeout(function() {
+            document.getElementById('chatId').focus();
+        }, 400);
+    }
+}
+
+function closeChatDrawer() {
+    var drawer = document.getElementById('chatDrawer');
+    var overlay = document.getElementById('chatOverlay');
+    
+    drawer.classList.remove('open');
+    overlay.classList.remove('show');
+}
+
+function chatWinOpen() {
+    var idElement = document.getElementById('chatId');
+    var id = idElement.value.trim();
+    
+    if (id === "") {
+        alert("닉네임을 입력해주세요.");
+        idElement.focus();
+        return;
+    }
+    
+    if (id.length < 2) {
+        alert("닉네임은 2글자 이상 입력해주세요.");
+        idElement.focus();
+        return;
+    }
+
+    // 채팅창 열기 - 경로를 현재 구조에 맞게 수정
+    try {
+        window.open(
+            "body/ChatWindow.jsp?chatId=" + encodeURIComponent(id), 
+            "chatWindow", 
+            "width=420,height=680,resizable=yes,scrollbars=no,status=no,menubar=no,toolbar=no,location=no"
+        );
+        
+        idElement.value = "";
+        closeChatDrawer();
+    } catch (error) {
+        // 팝업이 차단된 경우
+        alert("팝업이 차단되었습니다. 브라우저의 팝업 차단을 해제해주세요.");
+    }
+}
+</script>

@@ -1,0 +1,110 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+ <!--본문내용 -->
+<div class="content" id="myContent">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/main.css">
+  <title>FromJ</title>
+</head>
+<body>
+  <main class="center-wrap">
+    <button id="fromj" class="fromj-btn">FromJ</button>
+    <div class="subtxt">눌러서 열기</div>
+  </main>
+
+  <section id="menu" class="menu">
+    <div class="goo">
+      <a class="bubble" data-link="ESJ.jsp" href="ESJ.jsp">
+        <span class="label">어성준은 힘들다</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+      <a class="bubble" data-link="footballMain.jsp" href="footballMain.jsp">
+        <span class="label">축구하는여자</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+      <a class="bubble" data-link="seoulfood.jsp" href="seoulfood.jsp">
+        <span class="label">서울맛집지도</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+    </div>
+    <div class="close-hint">ESC로 닫기</div>
+  </section>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+        <feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -6" result="goo"/>
+        <feBlend in="SourceGraphic" in2="goo"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <script>
+    const root = document.documentElement;
+    const trigger = document.getElementById('fromj');
+    const menu = document.getElementById('menu');
+
+    function openMenu(x, y){
+      root.style.setProperty('--cx', x + 'px');
+      root.style.setProperty('--cy', y + 'px');
+      document.body.classList.add('menu-open');
+    }
+    function closeMenu(){ document.body.classList.remove('menu-open'); }
+
+    trigger.addEventListener('click', (e)=>{
+      const rect = e.currentTarget.getBoundingClientRect();
+      openMenu(rect.left + rect.width/2, rect.top + rect.height/2);
+    });
+
+    document.querySelectorAll('.bubble').forEach((bubble)=>{
+      bubble.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const link = e.currentTarget.getAttribute('href');
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        
+        // 리플 효과
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (x - size/2) + 'px';
+        ripple.style.top = (y - size/2) + 'px';
+        e.currentTarget.appendChild(ripple);
+
+        // 버스트 애니메이션
+        e.currentTarget.classList.add('burst');
+        
+        setTimeout(()=>{
+          // 재생성 애니메이션
+          e.currentTarget.classList.remove('burst');
+          e.currentTarget.classList.add('regenerate');
+          
+          setTimeout(()=>{
+            e.currentTarget.classList.remove('regenerate');
+            window.location.assign(link);
+          }, 200);
+        }, 400);
+
+        setTimeout(()=> ripple.remove(), 800);
+      });
+    });
+
+    window.addEventListener('keydown', (e)=>{ 
+      if(e.key === 'Escape') closeMenu(); 
+    });
+  </script>
+</body>
+</html>
+
+<section>
+	<p>페이지 내용</p>
+</section>
+<jsp:include page="chat.jsp"></jsp:include>
+</div>

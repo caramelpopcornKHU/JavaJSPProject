@@ -1,0 +1,144 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+ <!--본문내용 -->
+<div class="content" id="myContent">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/main.css">
+  <title>FromJ</title>
+
+</head>
+<body>
+  <main class="center-wrap">
+    <button id="fromj" class="fromj-btn">FromJ</button>
+    <div class="subtxt">눌러서 열기</div>
+  </main>
+
+  <section id="menu" class="menu">
+    <div class="goo">
+      <a class="bubble" href="ESJ.jsp">
+        <span class="label">어성준은 힘들다</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+      <a class="bubble" href="footballMain.jsp">
+        <span class="label">축구하는여자</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+      <a class="bubble" href="seoulfood.jsp">
+        <span class="label">서울맛집지도</span>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      </a>
+    </div>
+    <div class="close-hint">ESC로 닫기</div>
+  </section>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+        <feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -6" result="goo"/>
+        <feBlend in="SourceGraphic" in2="goo"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <script>
+    const root = document.documentElement;
+    const trigger = document.getElementById('fromj');
+    const menu = document.getElementById('menu');
+    const bubbles = document.querySelectorAll('.bubble');
+
+    // 원형 배치 함수 (12시간 시계 기준)
+    function positionBubbles(){
+      const totalBubbles = bubbles.length;
+      const radius = 250;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      
+      bubbles.forEach((bubble, index) => {
+        // 3개면: 12시, 4시, 8시 위치
+        const clockHour = (12 / totalBubbles) * index;
+        const angle = (clockHour * 30 - 90) * (Math.PI / 180);
+        
+        const x = centerX + Math.cos(angle) * radius - 70; // 70 = bubble width/2
+        const y = centerY + Math.sin(angle) * radius - 70; // 70 = bubble height/2
+        
+        // 절대 위치로 설정
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        bubble.style.animationDelay = `${0.3 + index * 0.2}s`;
+      });
+    }
+
+    // 재충전 애니메이션
+    function rechargeBubbles(){
+      bubbles.forEach((bubble, index) => {
+        setTimeout(() => {
+          bubble.classList.add('recharge');
+          setTimeout(() => bubble.classList.remove('recharge'), 800);
+        }, index * 150);
+      });
+    }
+
+    // 초기 배치
+    positionBubbles();
+
+    function openMenu(x, y){
+      root.style.setProperty('--cx', x + 'px');
+      root.style.setProperty('--cy', y + 'px');
+      document.body.classList.add('menu-open');
+      setTimeout(() => rechargeBubbles(), 500);
+    }
+    
+    function closeMenu(){ 
+      document.body.classList.remove('menu-open'); 
+    }
+
+    trigger.addEventListener('click', (e)=>{
+      const rect = e.currentTarget.getBoundingClientRect();
+      openMenu(rect.left + rect.width/2, rect.top + rect.height/2);
+    });
+
+    bubbles.forEach((bubble)=>{
+      bubble.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const link = bubble.getAttribute('href');
+        
+        const rect = bubble.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = 140;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (x - size/2) + 'px';
+        ripple.style.top = (y - size/2) + 'px';
+        bubble.appendChild(ripple);
+
+        bubble.classList.add('burst');
+        
+        setTimeout(()=>{
+          window.location.href = link;
+        }, 500);
+
+        setTimeout(()=> ripple.remove(), 1000);
+      });
+    });
+
+    window.addEventListener('keydown', (e)=>{ 
+      if(e.key === 'Escape') closeMenu(); 
+    });
+  </script>
+</body>
+</html>
+
+<!-- <section>
+	<p>페이지 내용</p>
+</section> -->
+<jsp:include page="chat.jsp"></jsp:include>
+</div>

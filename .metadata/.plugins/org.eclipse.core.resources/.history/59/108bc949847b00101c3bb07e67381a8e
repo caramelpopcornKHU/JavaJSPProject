@@ -1,0 +1,166 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FromJ</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- 본문내용 -->
+  <div class="content" id="myContent">
+    <main class="center-wrap">
+      <button id="fromj" class="fromj-btn" aria-haspopup="true" aria-controls="menu" aria-expanded="false">FromJ</button>
+      <div class="subtxt">눌러서 열기</div>
+    </main>
+
+    <section id="menu" class="menu" role="dialog" aria-modal="true" aria-label="FromJ 메뉴">
+      <div class="goo">
+        <a class="bubble" href="ESJ.jsp">
+          <span class="label">어성준은 힘들다</span>
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </a>
+        <a class="bubble" href="footballMain.jsp">
+          <span class="label">축구하는여자</span>
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </a>
+        <a class="bubble" href="seoulfood.jsp">
+          <span class="label">서울맛집지도</span>
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </a>
+      </div>
+      <div class="close-hint">ESC로 닫기</div>
+    </section>
+
+    <!-- Gooey filter -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <filter id="gooey">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+          <feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -6" result="goo"/>
+          <feBlend in="SourceGraphic" in2="goo"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <section>
+      <p>페이지 내용</p>
+    </section>
+
+    <jsp:include page="chat.jsp"></jsp:include>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const trigger = document.getElementById('fromj');
+    const bubbles = Array.from(document.querySelectorAll('.bubble'));
+
+    /* 반응형 반경 계산 (원하는 값으로 조절 가능) */
+    function calcRadius() {
+      return Math.max(180, Math.min(280, Math.min(window.innerWidth, window.innerHeight) * 0.28));
+    }
+
+    /* 버튼 기준 12·4·8시 배치 (3개가 아닐 경우 등분 배치) */
+    function positionBubblesAroundTrigger(radius = 220) {
+      const rect = trigger.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;  // 버튼 중심 X (뷰포트 기준 px)
+      const centerY = rect.top + rect.height / 2;  // 버튼 중심 Y (뷰포트 기준 px)
+
+      let angles;
+      if (bubbles.length === 3) {
+        // 12시(-90°), 4시(30°), 8시(210°)
+        angles = [-90, 30, 210];
+      } else {
+        // N개면 -90°부터 등분 배치
+        const n = bubbles.length;
+        angles = Array.from({length:n}, (_,i)=> -90 + (360/n)*i);
+      }
+
+      bubbles.forEach((bubble, index) => {
+        const angle = (Math.PI / 180) * angles[index % angles.length];
+
+        const bw = bubble.offsetWidth || 140;
+        const bh = bubble.offsetHeight || 140;
+        const halfW = bw / 2;
+        const halfH = bh / 2;
+
+        const x = centerX + Math.cos(angle) * radius - halfW;
+        const y = centerY + Math.sin(angle) * radius - halfH;
+
+        bubble.style.left = `${x}px`;
+        bubble.style.top  = `${y}px`;
+        bubble.style.animationDelay = `${0.3 + index * 0.15}s`;
+      });
+    }
+
+    /* 재충전 애니메이션 */
+    function rechargeBubbles(){
+      bubbles.forEach((bubble, index) => {
+        setTimeout(() => {
+          bubble.classList.add('recharge');
+          setTimeout(() => bubble.classList.remove('recharge'), 800);
+        }, index * 150);
+      });
+    }
+
+    /* 메뉴 열기/닫기 */
+    function openMenuAt(x, y){
+      root.style.setProperty('--cx', x + 'px');
+      root.style.setProperty('--cy', y + 'px');
+      // 열기 전에 버튼 기준으로 정확히 배치
+      positionBubblesAroundTrigger(calcRadius());
+      document.body.classList.add('menu-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      setTimeout(() => rechargeBubbles(), 500);
+    }
+    function closeMenu(){
+      document.body.classList.remove('menu-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* 트리거 클릭 */
+    trigger.addEventListener('click', (e)=>{
+      const rect = e.currentTarget.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      openMenuAt(cx, cy);
+    });
+
+    /* 버블 클릭: ripple + burst + 네비게이트 */
+    bubbles.forEach((bubble)=>{
+      bubble.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const link = bubble.getAttribute('href');
+
+        const rect = bubble.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height) * 1.1;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (x - size/2) + 'px';
+        ripple.style.top = (y - size/2) + 'px';
+        bubble.appendChild(ripple);
+
+        bubble.classList.add('burst');
+
+        setTimeout(()=>{ window.location.assign(link); }, 500);
+        setTimeout(()=> ripple.remove(), 1000);
+      });
+    });
+
+    /* 초기 위치 계산 (메뉴 닫힌 상태에서도 준비) */
+    positionBubblesAroundTrigger(calcRadius());
+
+    /* 창 크기/스크롤 변화에도 버튼 기준 재배치 */
+    window.addEventListener('resize', ()=> positionBubblesAroundTrigger(calcRadius()));
+    window.addEventListener('scroll',  ()=> positionBubblesAroundTrigger(calcRadius()));
+
+    /* ESC로 닫기 */
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <display-name>WebSocket Chat Application</display-name>
+
+    <!-- 채팅 서버 주소 설정 -->
+	<context-param>
+	    <param-name>CHAT_ADDR</param-name>
+	    <!-- 포트 80은 HTTP의 기본 포트이므로, 웹 소켓 주소에서 포트 번호를 생략합니다. -->
+	    <!-- 주소에 172.168.10.24로 해야함 다른 컴퓨터도 접속가능함 -->
+	    <param-value>ws://172.168.10.24</param-value>
+	</context-param>
+</web-app>
