@@ -1,0 +1,534 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ body {
+     font-family: 'Inter', sans-serif;
+     background-color: #f8f8f8;
+     color: #1a1a1a;
+     line-height: 1.6;
+ }
+ .container {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 20px;
+ }
+ /* Header */
+ header {
+     background: #fff;
+     padding: 20px 0;
+     border-bottom: 1px solid #e0e0e0;
+     position: sticky;
+     top: 0;
+     z-index: 100;
+ }
+ .header-content {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+ .logo {
+     font-size: 24px;
+     font-weight: 700;
+     letter-spacing: 2px;
+     color: #1a1a1a;
+     text-decoration: none;
+ }
+ .nav {
+     display: flex;
+     gap: 40px;
+ }
+ .nav a {
+     text-decoration: none;
+     color: #666;
+     font-weight: 400;
+     transition: color 0.3s ease;
+ }
+ .nav a:hover {
+     color: #1a1a1a;
+ }
+ /* Hero Section */
+ .hero {
+     background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+     color: #fff;
+     text-align: center;
+     padding: 100px 0;
+     margin-bottom: 80px;
+ }
+  
+ .breaking-bar {
+     background: #232733;
+     color: #fff;
+     padding: 10px 0;
+     font-size: 15px;
+     font-weight: 400;
+     margin: 0 auto 0 auto;
+     max-width: 1000px;
+     overflow: hidden;
+     border-radius: 0;
+     box-shadow: none;
+ }
+ .breaking-wrap {
+     display: flex;
+     gap: 30px;
+     align-items: center;
+     animation: scrollBar 3s linear infinite;
+ }
+ .breaking-item {
+     white-space: nowrap;
+     font-size: 17px;
+     letter-spacing: 0.1em;
+     font-weight: 400;
+     opacity: 0.92;
+ }
+ 
+ @keyframes scrollBar {
+     0%   { transform: translateX(0);}
+     100% { transform: translateX(-50%);}
+ }
+
+ /* 추가된 네비게이션 스타일 */
+ .secondary-nav-container {
+     background-color: white;
+     border: 1px solid #e1e5e9;
+     border-radius: 8px;
+     margin: 40px auto;
+     padding: 0;
+     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+     max-width: 1000px;
+ }
+
+ .secondary-nav-menu {
+     display: flex;
+     list-style: none;
+     border-radius: 8px;
+     overflow: hidden;
+ }
+
+ .secondary-nav-item {
+     flex: 1;
+     text-align: center;
+ }
+
+ .secondary-nav-item span {
+     display: block;
+     padding: 4px 16px;
+     font-size: 14px;
+     font-weight: 500;
+     color: #666;
+     border-right: 1px solid #e1e5e9;
+     transition: all 0.2s ease;
+     position: relative;
+ }
+
+ .secondary-nav-item:last-child span {
+     border-right: none;
+ }
+
+ .secondary-nav-item:first-child span {
+     border-radius: 8px 0 0 8px;
+ }
+
+ .secondary-nav-item:last-child span {
+     border-radius: 0 8px 8px 0;
+ }
+
+ .secondary-nav-item span:hover {
+     background-color: #f8f9fa;
+     color: #333;
+ }
+
+ .secondary-nav-item.active span {
+     background-color: #007bff;
+     color: white;
+ }
+
+ .secondary-nav-item.home span {
+     background-color: #6c757d;
+     color: white;
+     font-size: 16px;
+ }
+
+ .secondary-nav-item.epl span {
+     color: #6a1b9a;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.esp span {
+     color: #e91e63;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.ita span {
+     color: #2e7d32;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.ger span {
+     color: #333;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.fra span {
+     color: #1976d2;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.community span {
+     color: #795548;
+ }
+
+ .secondary-nav-item.sns span {
+     color: #ff5722;
+ }
+
+ .secondary-nav-item.talk span {
+     background-color: #ffd700;
+     color: #333;
+     font-weight: bold;
+ }
+
+ .secondary-nav-item.job span {
+     color: #4caf50;
+ }
+
+ .secondary-nav-item.stats span {
+     color: #9c27b0;
+ }
+
+ .secondary-nav-item.event span {
+     color: #f44336;
+ }
+
+ /* 메인 콘텐츠 섹션 */
+ .main-content-section {
+     padding: 0 0 80px;
+ }
+
+ /* 나란히 배치를 위한 컨테이너 */
+ .content-wrapper {
+     display: grid;
+     grid-template-columns: 0.5fr 1.5fr; /* 리그 순위 : 뉴스 = 1 : 1.2 비율 */
+     gap: 40px;
+     max-width: 1200px;
+     margin: 0 auto;
+     align-items: start;
+ }
+
+/* 리그 순위 스타일 */
+ .league-container {
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+ }
+
+ .league-table {
+     background: #2a2a2a;
+     border-radius: 12px;
+     overflow: hidden;
+     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+ }
+
+ .league-header {
+     background: #1a1a1a;
+     color: #fff;
+     padding: 15px 20px;
+     font-size: 16px;
+     font-weight: 600;
+     text-align: center;
+     position: relative;
+ }
+
+ .league-header::after {
+     content: '';
+     position: absolute;
+     bottom: 0;
+     left: 20px;
+     right: 20px;
+     height: 2px;
+     background: linear-gradient(90deg, #007bff, #00d4ff);
+ }
+
+ .season-info {
+     color: #888;
+     font-size: 12px;
+     font-weight: 400;
+     margin-top: 2px;
+ }
+
+ .standings-list {
+     padding: 0;
+ }
+
+ .standing-item {
+     display: flex;
+     align-items: center;
+     padding: 12px 20px;
+     border-bottom: 1px solid #3a3a3a;
+     background: #2a2a2a;
+     transition: all 0.2s ease;
+ }
+
+ .standing-item:last-child {
+     border-bottom: none;
+ }
+
+ .standing-item:hover {
+     background: #333;
+     transform: translateX(2px);
+ }
+
+ .position {
+     font-size: 14px;
+     font-weight: 700;
+     color: #fff;
+     min-width: 25px;
+     text-align: center;
+     margin-right: 15px;
+     background: #007bff;
+     border-radius: 50%;
+     width: 25px;
+     height: 25px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 12px;
+ }
+
+ /* 상위 3팀 특별 색상 */
+ .standing-item:nth-child(1) .position {
+     background: linear-gradient(135deg, #FFD700, #FFA500);
+ }
+
+ .standing-item:nth-child(2) .position {
+     background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+ }
+
+ .standing-item:nth-child(3) .position {
+     background: linear-gradient(135deg, #CD7F32, #B8860B);
+ }
+
+ .team-name {
+     font-size: 14px;
+     color: #fff;
+     font-weight: 500;
+     flex: 1;
+ }
+
+ /* 뉴스 섹션 스타일 */
+ .section-title {
+     text-align: center;
+     margin-bottom: 40px;
+ }
+
+ .section-title h2 {
+     font-size: 32px;
+     font-weight: 300;
+     letter-spacing: 1px;
+     margin-bottom: 8px;
+     color: #1a1a1a;
+ }
+
+ .section-subtitle {
+     font-size: 16px;
+     color: #666;
+     font-weight: 300;
+ }
+
+ .news-list {
+     background: #fff;
+     border-radius: 8px;
+     padding: 30px;
+     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+ }
+
+ .news-item {
+     display: flex;
+     align-items: center;
+     padding: 15px 0;
+     border-bottom: 1px solid #e0e0e0;
+     gap: 15px;
+ }
+
+ .news-item:last-child {
+     border-bottom: none;
+ }
+
+ .news-number {
+     font-size: 14px;
+     color: #999;
+     min-width: 20px;
+     font-weight: 500;
+ }
+
+ .news-thumbnail {
+     width: 60px;
+     height: 60px;
+     border-radius: 4px;
+     object-fit: cover;
+     flex-shrink: 0;
+ }
+
+ .news-content {
+     flex: 1;
+ }
+
+ .news-item-title {
+     font-size: 16px;
+     font-weight: 500;
+     color: #1a1a1a;
+     margin-bottom: 5px;
+     line-height: 1.4;
+ }
+
+ .news-meta {
+     font-size: 12px;
+     color: #666;
+ }
+
+ .comment-count {
+     color: #007bff;
+     font-weight: 500;
+ }
+
+ /* Footer */
+ footer {
+     background: #1a1a1a;
+     color: #fff;
+     text-align: center;
+     padding: 60px 0;
+ }
+ .footer-content {
+     max-width: 800px;
+     margin: 0 auto;
+ }
+ .footer-links {
+     display: flex;
+     justify-content: center;
+     gap: 40px;
+     margin-bottom: 40px;
+ }
+ .footer-links a {
+     color: #ccc;
+     text-decoration: none;
+     font-weight: 300;
+     transition: color 0.3s ease;
+ }
+ .footer-links a:hover {
+     color: #fff;
+ }
+ .footer-text {
+     font-size: 14px;
+     color: #888;
+     font-weight: 300;
+ }
+
+ /* 단축키 패널 스타일 */
+ .shortcut-panel {
+     position: fixed;
+     top: 45%;
+     right: 40px;
+     background: white;
+     border: 1px solid #ddd;
+     border-radius: 8px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     z-index: 1000;
+     min-width: 180px;
+     font-size: 13px;
+ }
+
+ .shortcut-header {
+     background: #f8f9fa;
+     padding: 8px 12px;
+     border-bottom: 1px solid #ddd;
+     border-radius: 8px 8px 0 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .shortcut-title {
+     font-weight: 600;
+     color: #333;
+     font-size: 13px;
+ }
+
+ .shortcut-toggle {
+     background: none;
+     border: none;
+     font-size: 12px;
+     color: #666;
+     cursor: pointer;
+     padding: 2px 4px;
+ }
+
+ .shortcut-content {
+     padding: 12px;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 8px;
+ }
+
+ .shortcut-item {
+     display: flex;
+     align-items: center;
+     padding: 4px 0;
+     font-size: 12px;
+     color: #555;
+ }
+
+ .shortcut-key {
+     background: #f1f3f4;
+     border: 1px solid #dadce0;
+     border-radius: 3px;
+     padding: 2px 6px;
+     margin-right: 8px;
+     font-family: monospace;
+     font-size: 11px;
+     min-width: 20px;
+     text-align: center;
+     color: #333;
+     font-weight: 500;
+ }
+
+ .shortcut-desc {
+     flex: 1;
+     font-size: 11px;
+     color: #666;
+ }
+
+ /* 반응형 */
+ @media (max-width: 768px) {
+     .hero h1 {
+         font-size: 32px;
+     }
+     .hero p {
+         font-size: 16px;
+     }
+     .nav {
+         display: none;
+     }
+     .footer-links {
+         flex-direction: column;
+         gap: 20px;
+     }
+     .breaking-bar { 
+         max-width: 98vw; 
+         font-size: 14px; 
+     }
+     .breaking-wrap { 
+         gap: 16px; 
+     }
+     .secondary-nav-menu {
+         flex-wrap: wrap;
+     }
+     .secondary-nav-item {
+         flex: 0 0 auto;
+         min-width: 80px;
+     }
+     .shortcut-panel {
+         right: 10px;
+         min-width: 160px;
+     }
+ }

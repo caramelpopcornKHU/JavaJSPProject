@@ -4,27 +4,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.board.util.DBConnection;
+
 public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변수 선언
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/seoul_eats?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
-    private static final String DB_USER = "root"; // 본인의 DB 사용자명으로 변경
-    private static final String DB_PASSWORD = "rootroot"; // 본인의 DB 비밀번호로 변경
     
-    // 데이터베이스 연결
-    private Connection getConnection() throws SQLException {
-        try { // 내장 함수 및 연결하고 예외처리,
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("MySQL Driver not found", e);
-        }
-    }
-    
+	DBConnection dbconn = new DBConnection();
+	
     // 모든 맛집 정보 조회
     public List<RestaurantDTO> getAllRestaurants() {
         List<RestaurantDTO> restaurants = new ArrayList<>();
         String sql = "SELECT * FROM seoul_restaurants ORDER BY rating DESC";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             
@@ -56,7 +47,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
         List<RestaurantDTO> restaurants = new ArrayList<>(); // 리스트에 닮고 어떠한 타입으로
         String sql = "SELECT * FROM seoul_restaurants WHERE district = ? ORDER BY rating DESC";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, district);
@@ -90,7 +81,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
         List<RestaurantDTO> restaurants = new ArrayList<>();
         String sql = "SELECT * FROM seoul_restaurants WHERE food_type = ? ORDER BY rating DESC";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, foodType);
@@ -126,7 +117,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
                     "restaurant_name LIKE ? OR food_type LIKE ? OR tags LIKE ? OR district LIKE ? " +
                     "ORDER BY rating DESC";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             String searchPattern = "%" + keyword + "%";
@@ -164,7 +155,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
     public RestaurantDTO getRestaurantById(int id) {
         String sql = "SELECT * FROM seoul_restaurants WHERE id = ?";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, id);
@@ -198,7 +189,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
         List<String> districts = new ArrayList<>();
         String sql = "SELECT DISTINCT district FROM seoul_restaurants ORDER BY district";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             
@@ -217,7 +208,7 @@ public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변�
         List<String> foodTypes = new ArrayList<>();
         String sql = "SELECT DISTINCT food_type FROM seoul_restaurants ORDER BY food_type";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbconn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             
