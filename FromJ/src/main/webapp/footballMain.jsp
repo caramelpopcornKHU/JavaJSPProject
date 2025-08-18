@@ -653,16 +653,16 @@
        </div>
        <div class="shortcut-content">
            <div class="shortcut-item">
-               <span class="shortcut-key">alt</span>
-               <span class="shortcut-desc">맨 꼭 쓰기</span>
+               <span class="shortcut-key">alt+c</span>
+               <span class="shortcut-desc">댓글쓰기</span>
            </div>
            <div class="shortcut-item">
-               <span class="shortcut-key">alt</span>
-               <span class="shortcut-desc">글 쓰기</span>
+               <span class="shortcut-key">alt+w</span>
+               <span class="shortcut-desc">글쓰기</span>
            </div>
            <div class="shortcut-item">
-               <span class="shortcut-key">alt</span>
-               <span class="shortcut-desc">맨 꼭 등록</span>
+               <span class="shortcut-key">alt+q</span>
+               <span class="shortcut-desc">댓글 등록</span>
            </div>
            <div class="shortcut-item">
                <span class="shortcut-key">e</span>
@@ -694,7 +694,7 @@
            </div>
            <div class="shortcut-item">
                <span class="shortcut-key">2</span>
-               <span class="shortcut-desc">우머</span>
+               <span class="shortcut-desc">축구소식통</span>
            </div>
            <div class="shortcut-item">
                <span class="shortcut-key">3</span>
