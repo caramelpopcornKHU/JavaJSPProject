@@ -195,5 +195,6 @@ $(document).ready(function() {
     <!-- 메뉴 열기 버튼 -->
 	<jsp:include page="/body/chat.jsp"></jsp:include>
 </div>
+
 </body>
 </html>

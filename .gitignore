@@ -1,8 +1,11 @@
-/.metadata/
-<<<<<<< HEAD
-=======
+.metadata/
 .settings
 .classpath
 
 Servers
->>>>>>> refs/remotes/origin/PYJ
+FromJ/build/
+FromJ/bin/
+
+
+
+

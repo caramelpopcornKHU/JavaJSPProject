@@ -18,7 +18,6 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
 	<!-- 오버레이 메뉴 -->
 	<section id="menu" class="menu" role="dialog" aria-modal="true"
 		aria-label="FromJ 메뉴">
@@ -26,7 +25,7 @@
 			<a class="bubble" href="ESJ.jsp"> <span class="label">어성준은
 					힘들다</span> <span class="dot d1"></span><span class="dot d2"></span><span
 				class="dot d3"></span>
-			</a> <a class="bubble" href="footballMain.jsp"> <span class="label">축구 읽어주는 여자</span>
+			</a> <a class="bubble" href="footballMain"> <span class="label">축구 읽어주는 여자</span>
 				<span class="dot d1"></span><span class="dot d2"></span><span
 				class="dot d3"></span>
 			</a> <a class="bubble" href="seoulfood.jsp"> <span
@@ -94,27 +93,7 @@
 	    b.style.animationDelay = `${0.30 + i * 0.20}s`;
 	  });
 	}
-=======
- <!--본문내용 -->
-<div class="content" id="myContent">
-  <h1>본문 내용</h1>
-  <p>여기에 본문 내용이 들어갑니다.</p>
 
-
-<a href="footballMain">축구하는 여자</a>
-
-  
-<section>
-	<p>페이지 내용</p>
-</section>
-
-
-
-
-<!-- 메뉴 열기 버튼 -->
-<jsp:include page="chat.jsp"></jsp:include>
-</div>
->>>>>>> refs/remotes/origin/PYJ
 
 
 

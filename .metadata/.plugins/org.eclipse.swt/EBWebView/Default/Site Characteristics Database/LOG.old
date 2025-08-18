@@ -1,3 +1,5 @@
-2025/08/18-01:33:46.647 2184 Reusing MANIFEST C:\Users\JungHun\Project\JSP-Project\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
-2025/08/18-01:33:46.651 2184 Recovering log #3
-2025/08/18-01:33:46.651 2184 Reusing old log C:\Users\JungHun\Project\JSP-Project\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 
+2025/08/18-11:12:27.391 29d0 Log #3: 15 ops saved to Table #4 OK
+2025/08/18-11:12:27.407 29d0 Archiving C:\lx\jsp-lx-project\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log: OK
+2025/08/18-11:12:27.408 29d0 Table #4: 15 entries OK
+2025/08/18-11:12:27.410 29d0 Archiving C:\lx\jsp-lx-project\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
+2025/08/18-11:12:27.422 29d0 **** Repaired leveldb C:\lx\jsp-lx-project\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database; recovered 1 files; 334 bytes. Some data may have been lost. ****
