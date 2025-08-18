@@ -13,15 +13,6 @@ import com.football.model.News;
 
 
 public class NewsDAO {
-    
-    /*
-    Connection getConnection() throws Exception {
-        Context initContext = new InitialContext();
-        Context envContext = (Context) initContext.lookup("java:comp/env");
-        DataSource dataSource = (DataSource) envContext.lookup("jdbc/fromj");
-        return dataSource.getConnection();
-    }
-    */
 	
 	// com.board.util 패키지의 DBConnection 클래스의 인스턴스를 통하여 DB연결
     DBConnection dbConn = new DBConnection();

@@ -8,8 +8,7 @@
     
     <%-- ★★★★★ 1. 동적 헤더 포함 ★★★★★ --%>
     
-    
-<div>
+   <div>
     <!-- 메뉴 열기 버튼 -->
 	<jsp:include page="foodheader.jsp"></jsp:include>
 </div>
