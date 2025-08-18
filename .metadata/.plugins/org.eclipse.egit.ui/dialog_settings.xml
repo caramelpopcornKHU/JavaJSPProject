@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="CommitDialog.authorValues">
+		<item value="caramelpopcornKHU &lt;hyungmin8528@naver.com&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="caramelpopcornKHU &lt;hyungmin8528@naver.com&gt;"/>
+	</list>
+	<section name="org.eclipse.egit.ui.internal.fetch.FetchResultDialog.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="553"/>
+		<item key="DIALOG_Y_ORIGIN" value="209"/>
+		<item key="DIALOG_WIDTH" value="614"/>
+		<item key="DIALOG_HEIGHT" value="461"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="MAIN_SASH_FORM_ORIENTATION_VERTICAL" value="false"/>
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="C:\lx\jsp-lx-project\.git">
+			<item value="false"/>
+			<item value="caramelpopcornKHU &lt;hyungmin8528@naver.com&gt;"/>
+			<item value="# WARNING: head commit changed in the meantime&#x0D;&#x0A;&#x0D;&#x0A;Merge remote-tracking branch &apos;origin/PYJ&apos; into main&#x0A;&#x0A;# Conflicts:&#x0A;#&#x09;.gitignore&#x0A;#&#x09;FromJ/.project&#x0A;#&#x09;FromJ/src/main/java/com/board/util/DBConnection.java&#x0A;#&#x09;FromJ/src/main/java/com/football/dao/LeagueDAO.java&#x0A;#&#x09;FromJ/src/main/java/com/football/dao/NewsDAO.java&#x0A;#&#x09;FromJ/src/main/java/com/football/model/League.java&#x0A;#&#x09;FromJ/src/main/java/com/football/servlet/FootballServlet.java&#x0A;#&#x09;FromJ/src/main/webapp/body/body.jsp&#x0A;#&#x09;FromJ/src/main/webapp/body/chat.jsp&#x0A;#&#x09;FromJ/src/main/webapp/footballMain.jsp&#x0A;#&#x09;FromJ/src/main/webapp/index.jsp&#x0A;#&#x09;FromJ/src/main/webapp/web.xml&#x0A;"/>
+			<item value="caramelpopcornKHU &lt;hyungmin8528@naver.com&gt;"/>
+			<item value="2790c1e54363479fdeba6b21ed3d841b5d253774"/>
+			<item value="0"/>
+			<item value="false"/>
+			<item value="#"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.merge.MergeResultDialog.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="643"/>
+		<item key="DIALOG_Y_ORIGIN" value="381"/>
+		<item key="DIALOG_WIDTH" value="434"/>
+		<item key="DIALOG_HEIGHT" value="203"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.pull.PullResultDialog.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="701"/>
+		<item key="DIALOG_Y_ORIGIN" value="385"/>
+	</section>
+</section>
