@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="&lt;resource-ref&gt;"/>
 		<item value="api"/>
 	</list>
 	<section name="java.lang.Class">
