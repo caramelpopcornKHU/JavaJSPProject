@@ -19,7 +19,7 @@
    <header>
        <div class="container">
            <div class="header-content">
-               <a href="/footballMain" class="logo">축구읽어주는 여자</a>
+               <a href="footballMain" class="logo">축구읽어주는 여자</a>
                <nav class="nav">
                    <a href="/footballMain">축구 소식통</a>
                    <a href="/football_world">해외축구</a>

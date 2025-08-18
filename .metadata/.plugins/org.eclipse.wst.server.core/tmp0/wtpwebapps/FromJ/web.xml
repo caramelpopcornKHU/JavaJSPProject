@@ -44,8 +44,8 @@
 	</servlet-mapping>
 	<!-- 데이터소스 리소스 참조 (데이터베이스 연결용) -->
 	<resource-ref>
-		<description>MySQL DataSource for Football DB</description>
-		<res-ref-name>jdbc/footballdb</res-ref-name>
+		<description>FromJ DataSource</description>
+		<res-ref-name>jdbc/FromJ</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
