@@ -8,6 +8,12 @@
 	<link rel="stylesheet" href="css/drawer.css">
 </head>
 <body>
+
+<!-- 하단 메뉴 버튼 -->
+<jsp:include page="header/header.jsp"></jsp:include>
+
+
+
 <!-- 본문 메뉴 버튼 -->
 <jsp:include page="body/body.jsp"></jsp:include>
 </body>

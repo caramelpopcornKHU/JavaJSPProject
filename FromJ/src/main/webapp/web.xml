@@ -11,14 +11,15 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- 🔥 서블릿 선언 (FootballServlet) -->
+
+    <!-- 서블릿 선언 (FootballServlet) -->
     <servlet>
         <servlet-name>FootballServlet</servlet-name>
         <servlet-class>servlet.FootballServlet</servlet-class>
         
     </servlet>
     
-    <!-- 🔥 서블릿 매핑 (/main 경로로 접속하면 FootballServlet 실행) -->
+    <!-- 서블릿 매핑 (/main 경로로 접속하면 FootballServlet 실행) -->
     <servlet-mapping>
         <servlet-name>FootballServlet</servlet-name>
         <url-pattern>/main</url-pattern>
@@ -33,10 +34,10 @@
     <servlet-name>AdminServlet</servlet-name>
     <url-pattern>/admin</url-pattern>
 </servlet-mapping>
-    <!-- 🔥 데이터소스 리소스 참조 (데이터베이스 연결용) -->
+    <!-- 데이터소스 리소스 참조 (데이터베이스 연결용) -->
     <resource-ref>
         <description>MySQL DataSource for Football DB</description>
-        <res-ref-name>jdbc/FromJ</res-ref-name>
+        <res-ref-name>jdbc/footballdb</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
