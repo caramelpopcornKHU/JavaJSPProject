@@ -34,7 +34,7 @@
                     <input 
                         type="text" 
                         id="chatId" 
-                        class="chat-input" 
+                       class="chat-input" 
                         placeholder="사용할 닉네임을 입력하세요"
                         maxlength="10"
                     >

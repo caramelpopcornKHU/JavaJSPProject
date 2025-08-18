@@ -28,7 +28,7 @@
 			</a> <a class="bubble" href="footballMain"> <span class="label">축구 읽어주는 여자</span>
 				<span class="dot d1"></span><span class="dot d2"></span><span
 				class="dot d3"></span>
-			</a> <a class="bubble" href="seoulfood.jsp"> <span
+			</a> <a class="bubble" href="seoul_food.jsp"> <span
 				class="label">서울맛집지도</span> <span class="dot d1"></span><span
 				class="dot d2"></span><span class="dot d3"></span>
 			</a>
