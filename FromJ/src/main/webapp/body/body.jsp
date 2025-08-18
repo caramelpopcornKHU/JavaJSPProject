@@ -25,7 +25,7 @@
 			<a class="bubble" href="ESJ.jsp"> <span class="label">어성준은
 					힘들다</span> <span class="dot d1"></span><span class="dot d2"></span><span
 				class="dot d3"></span>
-			</a> <a class="bubble" href="footballMain.jsp"> <span class="label">축구하는여자</span>
+			</a> <a class="bubble" href="footballMain.jsp"> <span class="label">축구 읽어주는 여자</span>
 				<span class="dot d1"></span><span class="dot d2"></span><span
 				class="dot d3"></span>
 			</a> <a class="bubble" href="seoulfood.jsp"> <span

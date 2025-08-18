@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-    <Resource name="jdbc/footballdb" 
+    <Resource name="jdbc/FromJ" 
               auth="Container"
               type="javax.sql.DataSource"
               maxTotal="100" 
@@ -9,7 +9,7 @@
               username="root" 
               password="rootroot"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/football_db?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"
+              url="jdbc:mysql://localhost:3306/FromJ?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Seoul"
               validationQuery="SELECT 1"
               testWhileIdle="true"
               testOnBorrow="true"

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RestaurantDAO {
 
-    private final String URL = "jdbc:mysql://localhost:3306/seoul_eats?serverTimezone=UTC";
+    private final String URL = "jdbc:mysql://localhost:3306/FromJ?serverTimezone=Asia/Seoul";
     private final String USER = "root"; // ⚠️ 본인 DB 아이디
     private final String PASSWORD = "rootroot"; // ⚠️ 본인 DB 비밀번호
 

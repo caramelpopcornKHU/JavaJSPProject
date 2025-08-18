@@ -1,6 +1,6 @@
 // 전역 변수로 map과 markers 배열을 선언합니다.
-var map;
-var markers = [];
+let map;
+let markers = [];
 
 // 1. 페이지가 로드되면 실행될 초기화 함수
 document.addEventListener("DOMContentLoaded", function() {

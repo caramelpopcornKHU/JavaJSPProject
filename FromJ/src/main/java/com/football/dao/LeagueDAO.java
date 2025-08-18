@@ -15,7 +15,7 @@ public class LeagueDAO {
     Connection getConnection() throws Exception {
         Context initContext = new InitialContext();
         Context envContext = (Context) initContext.lookup("java:comp/env");
-        DataSource dataSource = (DataSource) envContext.lookup("jdbc/footballdb");
+        DataSource dataSource = (DataSource) envContext.lookup("jdbc/FromJ");
         return dataSource.getConnection();
     }
     

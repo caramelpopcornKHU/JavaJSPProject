@@ -1,6 +1,4 @@
-CREATE DATABASE IF NOT EXISTS boarddb DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-USE boarddb;
+USE FromJ;
 
 CREATE TABLE board (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,7 +8,7 @@ CREATE TABLE board (
     password VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    views INT DEFAULT 0,
+    viewboardbreaking_newsleague_standingsnewss INT DEFAULT 0,
     image_files TEXT,
     INDEX idx_category (category),
     INDEX idx_reg_date (reg_date DESC)
