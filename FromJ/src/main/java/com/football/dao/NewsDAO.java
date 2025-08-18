@@ -7,26 +7,31 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.board.util.DBConnection;
 import com.football.model.BreakingNews;
 import com.football.model.News;
 
 
 public class NewsDAO {
     
-    // JNDI를 통한 데이터베이스 연결
+    /*
     Connection getConnection() throws Exception {
         Context initContext = new InitialContext();
         Context envContext = (Context) initContext.lookup("java:comp/env");
-        DataSource dataSource = (DataSource) envContext.lookup("jdbc/footballdb");
+        DataSource dataSource = (DataSource) envContext.lookup("jdbc/fromj");
         return dataSource.getConnection();
     }
+    */
+	
+	// com.board.util 패키지의 DBConnection 클래스의 인스턴스를 통하여 DB연결
+    DBConnection dbConn = new DBConnection();
     
     // 최신 뉴스 목록 가져오기
     public List<News> getLatestNews(int limit) {
         List<News> newsList = new ArrayList<>();
         String sql = "SELECT * FROM news ORDER BY created_at DESC LIMIT ?";
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbConn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, limit);
@@ -57,7 +62,7 @@ public class NewsDAO {
         List<News> newsList = new ArrayList<>();
         String sql = "SELECT * FROM news ORDER BY RAND() LIMIT ?"; 
         
-        try (Connection conn = getConnection();
+        try (Connection conn = dbConn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, limit);
@@ -92,7 +97,7 @@ public class NewsDAO {
     public List<BreakingNews> getBreakingNewsTitles(int limit) {
         List<BreakingNews> list = new ArrayList<>();
         String sql = "SELECT title FROM breaking_news LIMIT ?";
-        try (Connection conn = getConnection();
+        try (Connection conn = dbConn.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, limit);
             ResultSet rs = pstmt.executeQuery();

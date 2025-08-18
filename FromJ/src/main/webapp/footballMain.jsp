@@ -71,25 +71,11 @@
            padding: 100px 0;
            margin-bottom: 80px;
        }
-       
-       .hero h1 {
-           font-size: 48px;
-           font-weight: 300;
-           letter-spacing: 3px;
-           margin-bottom: 20px;
-       }
-       .hero p {
-           font-size: 18px;
-           font-weight: 300;
-           opacity: 0.8;
-           max-width: 600px;
-           margin: 0 auto;
-       }
-
+        
        .breaking-bar {
            background: #232733;
            color: #fff;
-           padding: 15px 0;
+           padding: 10px 0;
            font-size: 15px;
            font-weight: 400;
            margin: 0 auto 0 auto;
@@ -106,7 +92,7 @@
        }
        .breaking-item {
            white-space: nowrap;
-           font-size: 15px;
+           font-size: 17px;
            letter-spacing: 0.1em;
            font-weight: 400;
            opacity: 0.92;
@@ -583,8 +569,9 @@
    <!-- Hero Section -->
    <section class="hero">
        <div class="container">
-           <h1>여기에 뭐 넣지 ..</h1>
-           <p>메인 설명 텍스트</p>
+       
+           <h1></h1>
+           <p></p>
        </div>
    </section>
 
