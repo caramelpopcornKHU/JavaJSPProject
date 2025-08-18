@@ -3,45 +3,95 @@ package com.food;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.food.RestaurantDAO;
-import com.food.RestaurantDTO;
 import com.google.gson.Gson;
 
-@WebServlet("/getRestaurants")
+@WebServlet("/RestaurantServlet")
 public class RestaurantServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private RestaurantDAO restaurantDAO;
+    
+    public RestaurantServlet() {
+        super();
+        restaurantDAO = new RestaurantDAO();
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // 한글 인코딩 설정
         request.setCharacterEncoding("UTF-8");
-        
-        // 'search' 파라미터 값을 가져옵니다.
-        String keyword = request.getParameter("search");
-        
-        RestaurantDAO dao = new RestaurantDAO();
-        List<RestaurantDTO> restaurantList;
-        
-        // 검색어가 있는지 없는지에 따라 다른 DAO 메서드를 호출합니다.
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            restaurantList = dao.searchRestaurants(keyword); // 검색어가 있으면 검색 메서드 호출
-        } else {
-            restaurantList = dao.getAllRestaurants(); // 검색어가 없으면 전체 목록 메서드 호출
-        }
-        
-        Gson gson = new Gson();
-        String json = gson.toJson(restaurantList);
-        
-        response.setContentType("application/json");
+        response.setContentType("application/json; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         
+        String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
-        out.print(json);
-        out.flush();
+        Gson gson = new Gson();
+        
+        try {
+            if (action == null || action.equals("getAllRestaurants")) {
+                // 모든 맛집 정보 조회
+                List<RestaurantDTO> restaurants = restaurantDAO.getAllRestaurants();
+                String json = gson.toJson(restaurants);
+                out.print(json);
+                
+            } else if (action.equals("getByDistrict")) {
+                // 구별 맛집 조회
+                String district = request.getParameter("district");
+                List<RestaurantDTO> restaurants = restaurantDAO.getRestaurantsByDistrict(district);
+                String json = gson.toJson(restaurants);
+                out.print(json);
+                
+            } else if (action.equals("getByFoodType")) {
+                // 음식 종류별 맛집 조회
+                String foodType = request.getParameter("foodType");
+                List<RestaurantDTO> restaurants = restaurantDAO.getRestaurantsByFoodType(foodType);
+                String json = gson.toJson(restaurants);
+                out.print(json);
+                
+            } else if (action.equals("search")) {
+                // 검색
+                String keyword = request.getParameter("keyword");
+                List<RestaurantDTO> restaurants = restaurantDAO.searchRestaurants(keyword);
+                String json = gson.toJson(restaurants);
+                out.print(json);
+                
+            } else if (action.equals("getById")) {
+                // ID로 특정 맛집 조회
+                int id = Integer.parseInt(request.getParameter("id"));
+                RestaurantDTO restaurant = restaurantDAO.getRestaurantById(id);
+                String json = gson.toJson(restaurant);
+                out.print(json);
+                
+            } else if (action.equals("getDistricts")) {
+                // 모든 구 목록 조회
+                List<String> districts = restaurantDAO.getAllDistricts();
+                String json = gson.toJson(districts);
+                out.print(json);
+                
+            } else if (action.equals("getFoodTypes")) {
+                // 모든 음식 종류 목록 조회
+                List<String> foodTypes = restaurantDAO.getAllFoodTypes();
+                String json = gson.toJson(foodTypes);
+                out.print(json);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.print("{\"error\":\"" + e.getMessage() + "\"}");
+        } finally {
+            out.flush();
+            out.close();
+        }
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }

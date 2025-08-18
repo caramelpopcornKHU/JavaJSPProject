@@ -1,84 +1,233 @@
 package com.food;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantDAO {
-
-    private final String URL = "jdbc:mysql://localhost:3306/seoul_eats?serverTimezone=UTC";
-    private final String USER = "root"; // ⚠️ 본인 DB 아이디
-    private final String PASSWORD = "rootroot"; // ⚠️ 본인 DB 비밀번호
-
-    // 공통 DB 조회 로직
-    private List<RestaurantDTO> fetchRestaurants(String sql, String keyword) {
-        List<RestaurantDTO> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/seoul_eats?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
+    private static final String DB_USER = "root"; // 본인의 DB 사용자명으로 변경
+    private static final String DB_PASSWORD = "rootroot"; // 본인의 DB 비밀번호로 변경
+    
+    // 데이터베이스 연결
+    private Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            pstmt = conn.prepareStatement(sql);
-
-            // 검색어가 있을 경우, 6개의 ?에 모두 값을 설정합니다.
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                String searchKeyword = "%" + keyword.trim() + "%";
-                pstmt.setString(1, searchKeyword);
-                pstmt.setString(2, searchKeyword);
-                pstmt.setString(3, searchKeyword);
-                pstmt.setString(4, searchKeyword);
-                pstmt.setString(5, searchKeyword);
-                pstmt.setString(6, searchKeyword);
-            }
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                RestaurantDTO dto = new RestaurantDTO();
-                dto.setRestaurantName(rs.getString("restaurant_name"));
-                dto.setAddress(rs.getString("address"));
-                dto.setLatitude(rs.getDouble("latitude"));
-                dto.setLongitude(rs.getDouble("longitude"));
-                dto.setTags(rs.getString("tags"));
-                dto.setRating(rs.getDouble("rating"));
-                dto.setFoodType(rs.getString("food_type"));
-                dto.setNearbyStation(rs.getString("nearby_station")); // 역 정보 추가
-                list.add(dto);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("MySQL Driver not found", e);
         }
-        return list;
     }
-
-    // 모든 맛집 정보 가져오기
+    
+    // 모든 맛집 정보 조회
     public List<RestaurantDTO> getAllRestaurants() {
-        String sql = "SELECT * FROM seoul_restaurants";
-        return fetchRestaurants(sql, null);
+        List<RestaurantDTO> restaurants = new ArrayList<>();
+        String sql = "SELECT * FROM seoul_restaurants ORDER BY rating DESC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                RestaurantDTO restaurant = new RestaurantDTO();
+                restaurant.setId(rs.getInt("id"));
+                restaurant.setDistrict(rs.getString("district"));
+                restaurant.setRestaurantName(rs.getString("restaurant_name"));
+                restaurant.setRating(rs.getDouble("rating"));
+                restaurant.setFoodType(rs.getString("food_type"));
+                restaurant.setAddress(rs.getString("address"));
+                restaurant.setLatitude(rs.getDouble("latitude"));
+                restaurant.setLongitude(rs.getDouble("longitude"));
+                restaurant.setNearbyStation(rs.getString("nearby_station"));
+                restaurant.setOpeningHours(rs.getString("opening_hours"));
+                restaurant.setTags(rs.getString("tags"));
+                
+                restaurants.add(restaurant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return restaurants;
     }
-
-    // ⭐ 더 강력해진 통합 검색 메소드
+    
+    // 구별로 맛집 조회
+    public List<RestaurantDTO> getRestaurantsByDistrict(String district) {
+        List<RestaurantDTO> restaurants = new ArrayList<>();
+        String sql = "SELECT * FROM seoul_restaurants WHERE district = ? ORDER BY rating DESC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, district);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                RestaurantDTO restaurant = new RestaurantDTO();
+                restaurant.setId(rs.getInt("id"));
+                restaurant.setDistrict(rs.getString("district"));
+                restaurant.setRestaurantName(rs.getString("restaurant_name"));
+                restaurant.setRating(rs.getDouble("rating"));
+                restaurant.setFoodType(rs.getString("food_type"));
+                restaurant.setAddress(rs.getString("address"));
+                restaurant.setLatitude(rs.getDouble("latitude"));
+                restaurant.setLongitude(rs.getDouble("longitude"));
+                restaurant.setNearbyStation(rs.getString("nearby_station"));
+                restaurant.setOpeningHours(rs.getString("opening_hours"));
+                restaurant.setTags(rs.getString("tags"));
+                
+                restaurants.add(restaurant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return restaurants;
+    }
+    
+    // 음식 종류별로 맛집 조회
+    public List<RestaurantDTO> getRestaurantsByFoodType(String foodType) {
+        List<RestaurantDTO> restaurants = new ArrayList<>();
+        String sql = "SELECT * FROM seoul_restaurants WHERE food_type = ? ORDER BY rating DESC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, foodType);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                RestaurantDTO restaurant = new RestaurantDTO();
+                restaurant.setId(rs.getInt("id"));
+                restaurant.setDistrict(rs.getString("district"));
+                restaurant.setRestaurantName(rs.getString("restaurant_name"));
+                restaurant.setRating(rs.getDouble("rating"));
+                restaurant.setFoodType(rs.getString("food_type"));
+                restaurant.setAddress(rs.getString("address"));
+                restaurant.setLatitude(rs.getDouble("latitude"));
+                restaurant.setLongitude(rs.getDouble("longitude"));
+                restaurant.setNearbyStation(rs.getString("nearby_station"));
+                restaurant.setOpeningHours(rs.getString("opening_hours"));
+                restaurant.setTags(rs.getString("tags"));
+                
+                restaurants.add(restaurant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return restaurants;
+    }
+    
+    // 검색 기능
     public List<RestaurantDTO> searchRestaurants(String keyword) {
-        String sql = "SELECT * FROM seoul_restaurants WHERE "
-                   + "restaurant_name LIKE ? OR "
-                   + "tags LIKE ? OR "
-                   + "nearby_station LIKE ? OR "
-                   + "district LIKE ? OR "
-                   + "food_type LIKE ? OR "
-                   + "address LIKE ?";
-        return fetchRestaurants(sql, keyword);
+        List<RestaurantDTO> restaurants = new ArrayList<>();
+        String sql = "SELECT * FROM seoul_restaurants WHERE " +
+                    "restaurant_name LIKE ? OR food_type LIKE ? OR tags LIKE ? OR district LIKE ? " +
+                    "ORDER BY rating DESC";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            String searchPattern = "%" + keyword + "%";
+            pstmt.setString(1, searchPattern);
+            pstmt.setString(2, searchPattern);
+            pstmt.setString(3, searchPattern);
+            pstmt.setString(4, searchPattern);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                RestaurantDTO restaurant = new RestaurantDTO();
+                restaurant.setId(rs.getInt("id"));
+                restaurant.setDistrict(rs.getString("district"));
+                restaurant.setRestaurantName(rs.getString("restaurant_name"));
+                restaurant.setRating(rs.getDouble("rating"));
+                restaurant.setFoodType(rs.getString("food_type"));
+                restaurant.setAddress(rs.getString("address"));
+                restaurant.setLatitude(rs.getDouble("latitude"));
+                restaurant.setLongitude(rs.getDouble("longitude"));
+                restaurant.setNearbyStation(rs.getString("nearby_station"));
+                restaurant.setOpeningHours(rs.getString("opening_hours"));
+                restaurant.setTags(rs.getString("tags"));
+                
+                restaurants.add(restaurant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return restaurants;
+    }
+    
+    // ID로 특정 맛집 조회
+    public RestaurantDTO getRestaurantById(int id) {
+        String sql = "SELECT * FROM seoul_restaurants WHERE id = ?";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                RestaurantDTO restaurant = new RestaurantDTO();
+                restaurant.setId(rs.getInt("id"));
+                restaurant.setDistrict(rs.getString("district"));
+                restaurant.setRestaurantName(rs.getString("restaurant_name"));
+                restaurant.setRating(rs.getDouble("rating"));
+                restaurant.setFoodType(rs.getString("food_type"));
+                restaurant.setAddress(rs.getString("address"));
+                restaurant.setLatitude(rs.getDouble("latitude"));
+                restaurant.setLongitude(rs.getDouble("longitude"));
+                restaurant.setNearbyStation(rs.getString("nearby_station"));
+                restaurant.setOpeningHours(rs.getString("opening_hours"));
+                restaurant.setTags(rs.getString("tags"));
+                
+                return restaurant;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    // 모든 구 목록 조회
+    public List<String> getAllDistricts() {
+        List<String> districts = new ArrayList<>();
+        String sql = "SELECT DISTINCT district FROM seoul_restaurants ORDER BY district";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                districts.add(rs.getString("district"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return districts;
+    }
+    
+    // 모든 음식 종류 목록 조회
+    public List<String> getAllFoodTypes() {
+        List<String> foodTypes = new ArrayList<>();
+        String sql = "SELECT DISTINCT food_type FROM seoul_restaurants ORDER BY food_type";
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                foodTypes.add(rs.getString("food_type"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return foodTypes;
     }
 }
