@@ -4,14 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantDAO {
+public class RestaurantDAO { //데이터 베이스 연결 내장 함수 및 변수 선언
     private static final String DB_URL = "jdbc:mysql://localhost:3306/seoul_eats?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8";
     private static final String DB_USER = "root"; // 본인의 DB 사용자명으로 변경
     private static final String DB_PASSWORD = "rootroot"; // 본인의 DB 비밀번호로 변경
     
     // 데이터베이스 연결
     private Connection getConnection() throws SQLException {
-        try {
+        try { // 내장 함수 및 연결하고 예외처리,
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         } catch (ClassNotFoundException e) {
@@ -28,7 +28,7 @@ public class RestaurantDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             
-            while (rs.next()) {
+            while (rs.next()) { // 데이터 베이스 컬럼 조회
                 RestaurantDTO restaurant = new RestaurantDTO();
                 restaurant.setId(rs.getInt("id"));
                 restaurant.setDistrict(rs.getString("district"));
@@ -53,7 +53,7 @@ public class RestaurantDAO {
     
     // 구별로 맛집 조회
     public List<RestaurantDTO> getRestaurantsByDistrict(String district) {
-        List<RestaurantDTO> restaurants = new ArrayList<>();
+        List<RestaurantDTO> restaurants = new ArrayList<>(); // 리스트에 닮고 어떠한 타입으로
         String sql = "SELECT * FROM seoul_restaurants WHERE district = ? ORDER BY rating DESC";
         
         try (Connection conn = getConnection();
