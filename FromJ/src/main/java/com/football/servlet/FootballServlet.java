@@ -68,7 +68,7 @@ public class FootballServlet extends HttpServlet {
 
             // 3. 브레이킹뉴스 DB에서 제목만 4개 가져오기
             NewsDAO breakingNewsDAO = new NewsDAO();
-            List<BreakingNews> breakingNews = breakingNewsDAO.getBreakingNewsTitles(4);
+            List<BreakingNews> breakingNews = breakingNewsDAO.getBreakingNewsTitles(5);
 
             // JSP에 데이터 전달
             req.setAttribute("newsList", newsList);

@@ -89,11 +89,11 @@
        .breaking-bar {
            background: #232733;
            color: #fff;
-           padding: 7px 0;
+           padding: 15px 0;
            font-size: 15px;
            font-weight: 400;
            margin: 0 auto 40px auto;
-           max-width: 900px;
+           max-width: 1000px;
            overflow: hidden;
            border-radius: 0;
            box-shadow: none;
@@ -132,7 +132,7 @@
            align-items: start;
        }
 
-       /* 리그 순위 스타일 */
+      /* 리그 순위 스타일 */
        .league-container {
            display: flex;
            flex-direction: column;
@@ -363,33 +363,6 @@
                gap: 16px; 
            }
            
-           /* 모바일에서는 세로 배치 */
-           .content-wrapper {
-               grid-template-columns: 1fr;
-               gap: 40px;
-               margin: 0 15px;
-           }
-           
-           .league-section {
-               order: 2; /* 모바일에서는 뉴스가 먼저, 리그 순위가 나중에 */
-           }
-           
-           .news-section {
-               order: 1;
-           }
-           
-           .news-list {
-               padding: 20px;
-           }
-
-           .standing-item {
-               padding: 10px 15px;
-           }
-
-           .team-name {
-               font-size: 13px;
-           }
-       }
    </style>
 </head>
 <body>
@@ -510,10 +483,10 @@
                <div class="footer-links">
                    <a href="/link1">홈</a>
                    <a href="/link2">어성준은 힘들다</a>
-                   <a href="/link3">링크3</a>
-                   <a href="/link4">링크4</a>
-                   <a href="/link5">링크5</a>
-                   <a href="/link5">chat</a>
+                   <a href="/link3">이용약관</a>
+                   <a href="/link4">개인정보처리방침</a>
+                   <a href="/link5">문의/신고</a>
+                   <a href="/link5">게시글중단요청</a>
                </div>
                <p class="footer-text">© 2025 축구읽어주는 여자. All rights reserved.</p>
            </div>
