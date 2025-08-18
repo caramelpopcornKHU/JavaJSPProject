@@ -92,7 +92,7 @@
            padding: 15px 0;
            font-size: 15px;
            font-weight: 400;
-           margin: 0 auto 40px auto;
+           margin: 0 auto 0 auto;
            max-width: 1000px;
            overflow: hidden;
            border-radius: 0;
@@ -115,6 +115,119 @@
        @keyframes scrollBar {
            0%   { transform: translateX(0);}
            100% { transform: translateX(-50%);}
+       }
+
+       /* 추가된 네비게이션 스타일 */
+       .secondary-nav-container {
+           background-color: white;
+           border: 1px solid #e1e5e9;
+           border-radius: 8px;
+           margin: 40px auto;
+           padding: 0;
+           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+           max-width: 1000px;
+       }
+
+       .secondary-nav-menu {
+           display: flex;
+           list-style: none;
+           border-radius: 8px;
+           overflow: hidden;
+       }
+
+       .secondary-nav-item {
+           flex: 1;
+           text-align: center;
+       }
+
+       .secondary-nav-item span {
+           display: block;
+           padding: 4px 16px;
+           font-size: 14px;
+           font-weight: 500;
+           color: #666;
+           border-right: 1px solid #e1e5e9;
+           transition: all 0.2s ease;
+           position: relative;
+       }
+
+       .secondary-nav-item:last-child span {
+           border-right: none;
+       }
+
+       .secondary-nav-item:first-child span {
+           border-radius: 8px 0 0 8px;
+       }
+
+       .secondary-nav-item:last-child span {
+           border-radius: 0 8px 8px 0;
+       }
+
+       .secondary-nav-item span:hover {
+           background-color: #f8f9fa;
+           color: #333;
+       }
+
+       .secondary-nav-item.active span {
+           background-color: #007bff;
+           color: white;
+       }
+
+       .secondary-nav-item.home span {
+           background-color: #6c757d;
+           color: white;
+           font-size: 16px;
+       }
+
+       .secondary-nav-item.epl span {
+           color: #6a1b9a;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.esp span {
+           color: #e91e63;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.ita span {
+           color: #2e7d32;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.ger span {
+           color: #333;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.fra span {
+           color: #1976d2;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.community span {
+           color: #795548;
+       }
+
+       .secondary-nav-item.sns span {
+           color: #ff5722;
+       }
+
+       .secondary-nav-item.talk span {
+           background-color: #ffd700;
+           color: #333;
+           font-weight: bold;
+       }
+
+       .secondary-nav-item.job span {
+           color: #4caf50;
+       }
+
+       .secondary-nav-item.stats span {
+           color: #9c27b0;
+       }
+
+       .secondary-nav-item.event span {
+           color: #f44336;
        }
 
        /* 메인 콘텐츠 섹션 */
@@ -340,6 +453,80 @@
            font-weight: 300;
        }
 
+       /* 단축키 패널 스타일 */
+       .shortcut-panel {
+           position: fixed;
+           top: 45%;
+           right: 40px;
+           background: white;
+           border: 1px solid #ddd;
+           border-radius: 8px;
+           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+           z-index: 1000;
+           min-width: 180px;
+           font-size: 13px;
+       }
+
+       .shortcut-header {
+           background: #f8f9fa;
+           padding: 8px 12px;
+           border-bottom: 1px solid #ddd;
+           border-radius: 8px 8px 0 0;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+
+       .shortcut-title {
+           font-weight: 600;
+           color: #333;
+           font-size: 13px;
+       }
+
+       .shortcut-toggle {
+           background: none;
+           border: none;
+           font-size: 12px;
+           color: #666;
+           cursor: pointer;
+           padding: 2px 4px;
+       }
+
+       .shortcut-content {
+           padding: 12px;
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 8px;
+       }
+
+       .shortcut-item {
+           display: flex;
+           align-items: center;
+           padding: 4px 0;
+           font-size: 12px;
+           color: #555;
+       }
+
+       .shortcut-key {
+           background: #f1f3f4;
+           border: 1px solid #dadce0;
+           border-radius: 3px;
+           padding: 2px 6px;
+           margin-right: 8px;
+           font-family: monospace;
+           font-size: 11px;
+           min-width: 20px;
+           text-align: center;
+           color: #333;
+           font-weight: 500;
+       }
+
+       .shortcut-desc {
+           flex: 1;
+           font-size: 11px;
+           color: #666;
+       }
+
        /* 반응형 */
        @media (max-width: 768px) {
            .hero h1 {
@@ -362,7 +549,18 @@
            .breaking-wrap { 
                gap: 16px; 
            }
-           
+           .secondary-nav-menu {
+               flex-wrap: wrap;
+           }
+           .secondary-nav-item {
+               flex: 0 0 auto;
+               min-width: 80px;
+           }
+           .shortcut-panel {
+               right: 10px;
+               min-width: 160px;
+           }
+       }
    </style>
 </head>
 <body>
@@ -400,6 +598,110 @@
 	    </c:forEach>
 	  </div>
 	</div>
+
+   <!--네비게이션 2-->
+   <div class="secondary-nav-container">
+       <ul class="secondary-nav-menu">
+           <li class="secondary-nav-item home">
+               <span>홈</span>
+           </li>
+           <li class="secondary-nav-item">
+               <span>인기</span>
+           </li>
+           <li class="secondary-nav-item epl active">
+               <span>EPL</span>
+           </li>
+           <li class="secondary-nav-item esp">
+               <span>ESP</span>
+           </li>
+           <li class="secondary-nav-item ita">
+               <span>ITA</span>
+           </li>
+           <li class="secondary-nav-item ger">
+               <span>GER</span>
+           </li>
+           <li class="secondary-nav-item fra">
+               <span>FRA</span>
+           </li>
+           <li class="secondary-nav-item community">
+               <span>기타</span>
+           </li>
+           <li class="secondary-nav-item sns">
+               <span>SNS</span>
+           </li>
+           <li class="secondary-nav-item talk">
+               <span>TALK</span>
+           </li>
+           <li class="secondary-nav-item job">
+               <span>잡담</span>
+           </li>
+           <li class="secondary-nav-item stats">
+               <span>영상</span>
+           </li>
+           <li class="secondary-nav-item event">
+               <span>이벤트</span>
+           </li>
+       </ul>
+   </div>
+   
+
+   <!-- 단축키 패널 -->
+   <div class="shortcut-panel">
+       <div class="shortcut-header">
+           <span class="shortcut-title">단축키</span>
+           <button class="shortcut-toggle">설정하기 ▶</button>
+       </div>
+       <div class="shortcut-content">
+           <div class="shortcut-item">
+               <span class="shortcut-key">alt</span>
+               <span class="shortcut-desc">맨 꼭 쓰기</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">alt</span>
+               <span class="shortcut-desc">글 쓰기</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">alt</span>
+               <span class="shortcut-desc">맨 꼭 등록</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">e</span>
+               <span class="shortcut-desc">상단으로</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">s</span>
+               <span class="shortcut-desc">이전</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">d</span>
+               <span class="shortcut-desc">하단으로</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">f</span>
+               <span class="shortcut-desc">다음</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">q</span>
+               <span class="shortcut-desc">메인</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">w</span>
+               <span class="shortcut-desc">인기글</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">1</span>
+               <span class="shortcut-desc">프리미어리그</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">2</span>
+               <span class="shortcut-desc">우머</span>
+           </div>
+           <div class="shortcut-item">
+               <span class="shortcut-key">3</span>
+               <span class="shortcut-desc">축구소식</span>
+           </div>
+       </div>
+   </div>
 
    <!-- 메인 콘텐츠 섹션 (리그 순위 + 뉴스) -->
    <section class="main-content-section">
