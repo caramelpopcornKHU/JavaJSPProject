@@ -19,12 +19,12 @@
    <header>
        <div class="container">
            <div class="header-content">
-               <a href="/home" class="logo">축구읽어주는 여자</a>
+               <a href="/footballMain" class="logo">축구읽어주는 여자</a>
                <nav class="nav">
-                   <a href="/home">축구 소식통</a>
+                   <a href="/footballMain">축구 소식통</a>
                    <a href="/football_world">해외축구</a>
                    <a href="/football_korean">국내축구</a>
-                   <a href="/board">게시판 글쓰기</a>        
+                   <a href="ESJ.jsp">게시판 글쓰기</a>        
                </nav>
            </div>
        </div>
@@ -235,8 +235,9 @@
        <div class="container">
            <div class="footer-content">
                <div class="footer-links">
-                   <a href="/index.jsp">홈</a>
-                   <a href="/ESJ.jsp">어성준은 힘들다</a>
+                   <a href="index.jsp">홈</a>
+                   <a href="ESJ.jsp">어성준은 힘들다</a>
+                   <a href="seoul_food.jsp">서울맛집지도</a>
                    <a>이용약관</a>
                    <a>개인정보처리방침</a>
                    <a>문의/신고</a>

@@ -1,10 +1,4 @@
 INDEX VERSION 1.134
-C:\Users\LX\JSP-Project\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3239584626.index
-\FromJ\src\main\java
-C:\Users\LX\JSP-Project\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2966574975.index
-\FromJ\src\main\java
-C:\Users\LX\JSP-Project\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1297845984.index
-\FromJ\src\main\java
 C:\Users\LX\JSP-Project\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\401352024.index
 \FromJ\src\main\java
 C:\Users\LX\JSP-Project\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4225333037.index
