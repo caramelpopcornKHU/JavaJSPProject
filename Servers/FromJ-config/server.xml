@@ -1,27 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tomcat 메인 서버 설정 파일.
+  - 포트 80에서 HTTP 서비스 제공
+  - / (루트 컨텍스트)를 FromJ 애플리케이션에 매핑
+  - WebSocket은 Tomcat 7.0.47+/8+ 내장(별도 커넥터 불필요)
+-->
 <Server port="8005" shutdown="SHUTDOWN">
+  <!-- 서버 시작 시 버전/환경 로그 출력 -->
   <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
+  <!-- APR/native 라이브러리 사용 시 라이프사이클 관리(없어도 동작) -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener"/>
+  <!-- 공용 드라이버/리소스 등의 메모리 누수 예방 -->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+  <!-- JNDI Global 자원(UserDatabase) 라이프사이클 관리 -->
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+  <!-- ThreadLocal 누수 예방 -->
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
 
+  <!-- 전역(JNDI) 리소스: 기본 사용자 DB(관리 콘솔용, 선택) -->
   <GlobalNamingResources>
-    <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+    <Resource
+      name="UserDatabase"
+      auth="Container"
+      type="org.apache.catalina.UserDatabase"
+      description="User database that can be updated and saved"
+      factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+      pathname="conf/tomcat-users.xml"/>
   </GlobalNamingResources>
 
   <Service name="Catalina">
-    <Connector connectionTimeout="20000" maxParameterCount="1000" port="80" protocol="HTTP/1.1" redirectPort="8443"/>
+    <!--
+      HTTP 커넥터
+      - 포트: 80 (기본 HTTP 포트, URL에 :80 생략 가능)
+      - connectionTimeout: 20초
+      - redirectPort: 8443 (HTTPS 필요 시 리다이렉트 포트)
+    -->
+    <Connector
+      protocol="HTTP/1.1"
+      port="80"
+      connectionTimeout="20000"
+      maxParameterCount="1000"
+      redirectPort="8443"/>
 
-    <Engine defaultHost="localhost" name="Catalina">
+    <Engine name="Catalina" defaultHost="localhost">
+      <!-- 인증/잠금 정책(관리 콘솔/보안에 관여, 일반 앱은 크게 영향 없음) -->
       <Realm className="org.apache.catalina.realm.LockOutRealm">
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
       </Realm>
 
-      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+      <!-- 기본 가상호스트: http://localhost 기준 -->
+      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+        <!-- 접근 로그 형식/경로 -->
+        <Valve
+          className="org.apache.catalina.valves.AccessLogValve"
+          directory="logs"
+          prefix="localhost_access_log"
+          suffix=".txt"
+          pattern="%h %l %u %t &quot;%r&quot; %s %b"/>
 
-      <Context docBase="FromJ" path="/" reloadable="true" source="org.eclipse.jst.jee.server:FromJ"/></Host>
+        <!--
+          ★ 가장 중요한 매핑 ★
+          - docBase="FromJ": 워크스페이스/배포폴더의 FromJ 애플리케이션을
+          - path="/": 루트 컨텍스트로 서비스 (즉, http://서버/ → FromJ)
+          - reloadable="true": /WEB-INF/classes 변경 시 자동 리로드(개발 편의)
+          - Eclipse 서블릿 런처 메타(source=...)는 IDE 연동 정보
+        -->
+        <Context
+          docBase="FromJ"
+          path="/"
+          reloadable="true"
+          source="org.eclipse.jst.jee.server:FromJ"/>
+      </Host>
     </Engine>
   </Service>
 </Server>

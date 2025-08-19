@@ -3,6 +3,9 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value=":"/>
+		<item value="웹 소켓"/>
+		<item value="웹 소캣"/>
 		<item value="&lt;resource-ref&gt;"/>
 		<item value="api"/>
 	</list>

@@ -1,5 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<!--
+chat.jsp: 채팅 진입 UI. drawer 열고 닉네임 입력해서 팝업 열기
+
+initializeChatFunctions():
+	#chatId 에서 Enter(키코드 13) 누르면 chatWinOpen() 호출했음.
+	
+	#chatId 입력 중에는 .error 클래스 제거했음.
+	
+	문서 전역에서 ESC(키코드 27) 누르면 closeChatDrawer() 로 드로어 닫았음.
+
+
+chatWinOpen():
+	닉네임 공백/2자 미만이면 alert 후 포커스 돌렸음.
+	
+	통과 시 window.open("body/ChatWindow.jsp?chatId=...") 로 팝업(420x680) 열었음.
+	
+	팝업 성공 시 입력값 초기화하고 드로어 닫았음.
+	
+	팝업 차단 시 경고(alert) 띄웠음.
+-->
+
+
+
+
+
 <link rel="stylesheet" href="css/chat.css">
 
 <!-- FontAwesome 아이콘 (이미 로드되어 있지 않은 경우에만) -->
